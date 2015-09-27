@@ -1,7 +1,7 @@
 <uwsgi>
         <socket>:8008</socket>
         <!--chmod-socket>777</chmod-socket-->
-        <pythonpath>/home/east305/eastsite/eastmain</pythonpath>
+        <pythonpath>/home/P-Plan/murisly/eastsite/eastmain</pythonpath>
         <module>eastmain.wsgi</module>
         <master>true</master>
         <processes>1</processes>
