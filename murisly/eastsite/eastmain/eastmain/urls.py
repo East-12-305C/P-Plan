@@ -18,6 +18,7 @@ from django.contrib import admin
 from testapp.views import *
 
 urlpatterns = [
+    url(r'^$', home),
     url(r'^hello/$', hello),
     url(r'^admin/', include(admin.site.urls)),
 ]
