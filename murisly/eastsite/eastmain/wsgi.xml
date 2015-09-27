@@ -1,0 +1,18 @@
+<uwsgi>
+        <socket>:8008</socket>
+        <!--chmod-socket>777</chmod-socket-->
+        <pythonpath>/home/east305/eastsite/eastmain</pythonpath>
+        <module>eastmain.wsgi</module>
+        <master>true</master>
+        <processes>1</processes>
+<!--
+        <enable-threads>true</enable-threads>
+        <logdate>true</logdate>
+        <harakiri>60</harakiri>
+        <reload-mercy>8</reload-mercy>
+        <max-requests>200</max-requests>
+        <limit-as>512</limit-as>
+        <reload-on-as>256</reload-on-as>
+        <reload-on-rss>192</reload-on-rss>
+-->
+</uwsgi>
