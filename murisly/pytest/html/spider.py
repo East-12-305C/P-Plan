@@ -12,51 +12,27 @@ url = 'http://weibo.cn/u/1931534830' #
 #url = 'http://weibo.cn/hanhan';
 # html = requests.get(url).content
 
-print(special_tuple);
 
 
+#html = requests.get(url, cookies = cook).content   #get byte
+#print(chardet.detect(html))  #detect code way
+html = requests.get(url, cookies = cook).text   #get str
 
-#html = requests.get(url, cookies = cook).content
-#print(chardet.detect(html))
-html = requests.get(url, cookies = cook).text
-print(html);
 
+# replcae special symbol
 for element in special_tuple:
     html = html.replace(element, " ");
 
+
+#change code way
 html = bytes(bytearray(html, encoding='utf-8'))
-print(html);
 selector = etree.HTML(html)
 
 
-
-#print((selector[0].tag));
-#print((selector[1].tag));
 content = selector.xpath('//span[@class="ctt"]')
-
-file = open("test.txt", "wb");
-
 for each in content:
     if each.text is not None:
-        encodetype = chardet.detect((each.text).encode("gbk", 'ignore'));
-        #gbkcode = ((each.content).encode("utf-8", 'ignore'));
-
-        if encodetype["encoding"] == "ISO-8859-2":
-            sub = ((each.text).encode("GB18030", "ignore"));
-            print(sub);
-            print(each.text)
-            # print(chardet.detect(sub));
-            # (sub.decode("utf-8", "ignore"));
-            file.write(sub);
-            # new = sub.decode();
-            # print(type(gbkcode));
-            # print(gbkcode)
-            # subtype = chardet.detect(gbkcode);
-            # print(subtype);
-            #print(gbkcode.decode("ISO-8859-2"));
-        else:
-            print(each.text)
+        print(each.text)
 
 
-file.close();
 
