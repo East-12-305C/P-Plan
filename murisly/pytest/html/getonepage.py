@@ -9,10 +9,11 @@ special_tuple = ("&nbsp;", "&amp;");
 def getWeiboContext(html):
     '''get name, sex, address, weibo context'''
 
+    html = html.decode();
     # replcae special symbol
     for element in special_tuple:
         html = html.replace(element, " ");
-
+    html = html.encode();
     selector = etree.HTML(html)
 
     weibovalue = [];
@@ -29,9 +30,29 @@ def getWeiboUrl(html):
     urls = [];
     content = selector.xpath('//a/@href')
     for each in content:
-        if each is not None:
-            urls.append(each);
+        if each is None:
+            continue;
 
+        pos = each.find("?");
+        if pos != -1:
+            continue;
+
+        pos = each.find("http://weibo.cn");
+        if pos == -1:
+            continue;
+
+        pos = each.find("http://weibo.cn/page");
+        if pos != -1:
+            continue;
+
+        pos = each.find("http://weibo.cn/topic");
+        if pos != -1:
+            continue;
+
+        if "http://weibo.cn" == each:
+            continue;
+
+    urls = set(urls);
     return urls;
 
 def add():
