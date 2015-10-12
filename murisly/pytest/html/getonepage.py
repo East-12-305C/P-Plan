@@ -3,7 +3,7 @@
 from lxml import etree
 
 #special symbol
-special_tuple = ("&nbsp;", "&amp;");
+special_tuple = ("&nbsp;", "&amp;", "&quot;", "&gt;", "&lt;");
 
 #get name, sex, address, weibo context
 def getWeiboContext(html):
@@ -51,6 +51,8 @@ def getWeiboUrl(html):
 
         if "http://weibo.cn" == each:
             continue;
+
+        urls.append(each);
 
     urls = set(urls);
     return urls;
