@@ -52,12 +52,14 @@ class Bloom_Filter():
     mark_value 函数是用于标记值的函数，应传入想要标记的值
     exists 函数是用于检测某个值是否已经被标记的函数，应传入想要检测的值'''
 
-    def __init__(self, amount = 1 << 26):
-        self.container_size = (-1) * amount * cmath.log(0.001) / (cmath.log(2) * cmath.log(2)) #计算最佳空间大小
-        self.container_size = int(self.container_size.real) #取整
+    def __init__(self, amount = 1 << 28):
+        #self.container_size = (-1) * amount * cmath.log(0.001) / (cmath.log(2) * cmath.log(2)) #计算最佳空间大小
+        #self.container_size = int(self.container_size.real) #取整
+        self.container_size = amount;
 
         self.hash_amount = cmath.log(2) * (self.container_size) / (amount)
         self.hash_amount = int(self.hash_amount.real)
+        self.hash_amount = 9;
 
         self.container = BitVector.BitVector(size = int(self.container_size)) #分配内存
 
