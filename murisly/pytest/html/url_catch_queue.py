@@ -17,9 +17,28 @@ class UrlQueue():
         self.contain_size = queueasize;
         self.url_queue = [];
 
+        self.putdataurl_in_bloomfilter();
+
+    def putdataurl_in_bloomfilter(self):
+        try:
+            conn = pymysql.connect(host='localhost',user='root',passwd='sm%198809',db='test',port=3306)
+            cur = conn.cursor();
+            cur.execute("select * from %s" % self.url_table_name);
+
+            urls = cur.fetchall();
+            for element in urls:
+                self.bloomfilter.mark_value(element[1]);
+
+            cur.close()
+            conn.close()
+
+        except Exception:
+            print("insert exception...");
+
+        return 0;
 
     def getmixid(self, cursor):
-        cursor.execute("select MIN(id) from %s" % self.url_table_name);
+        cursor.execute("select MIN(id) from %s where exist = 0" % self.url_table_name);
         minid = cursor.fetchone();
         if minid is None:
             return 0;
@@ -42,7 +61,7 @@ class UrlQueue():
 
         if False == ut_exist:
             print("create urls table...")
-            cursor.execute("create table %s(id int(16) not null auto_increment, url char(128) not null, PRIMARY KEY(id))" % self.url_table_name);
+            cursor.execute("create table %s(id int(16) not null auto_increment, url char(128) not null, exist tinyint(2), PRIMARY KEY(id))" % self.url_table_name);
             print("create urls table success...")
             return 0;
         else:
@@ -64,7 +83,7 @@ class UrlQueue():
             # create if not exist
             maxid = self.create_urltable(cur);
 
-            url_templet = "insert %s values(%d, '%s')";
+            url_templet = "insert %s values(%d, '%s', 0)";
             for element in urls:
                 maxid = maxid + 1;
                 url = url_templet % (self.url_table_name, maxid, element);
@@ -91,7 +110,7 @@ class UrlQueue():
 
                 cur.execute("select url from %s where id < %d" % (self.url_table_name, minid));
                 self.url_queue = list(cur.fetchall());
-                cur.execute("delete from %s where id < %d" % (self.url_table_name, minid));
+                cur.execute("update %s set exist = 1 where id < %d" % (self.url_table_name, minid));
                 conn.commit();
 
             cur.close()
