@@ -66,11 +66,9 @@ def insert_into_database(urls):
 
 
 def insert_url_intoqueue(url):
-    print("cource" + url);
     if not bfcontain.exists(url):
         bfcontain.mark_value(url);
 
-        print("??????" + str(len(url_queue)));
         if len(url_queue) < contain_size :
             url_queue.append(url);
         else:
@@ -80,12 +78,11 @@ def insert_url_intoqueue(url):
                 urls_insert.append(url_queue.pop());
                 i = i + 1;
 
-            #insert_into_database(urls_insert);
+            insert_into_database(urls_insert);
 
         return 0;
-    print("?????" + url);
-
     print("++++++++" + str(url));
+
 
 def getmixid(cursor):
     cursor.execute("select MIN(id) from %s" % url_table_name);

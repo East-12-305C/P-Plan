@@ -53,13 +53,12 @@ class Bloom_Filter():
     mark_value 函数是用于标记值的函数，应传入想要标记的值
     exists 函数是用于检测某个值是否已经被标记的函数，应传入想要检测的值'''
 
-    def __init__(self, amount = 1 << 28):
+    def __init__(self, amount = 1 << 26):
         self.container_size = (-1) * amount * cmath.log(0.001) / (cmath.log(2) * cmath.log(2)) #计算最佳空间大小
-        self.container_size = int(self.container_size.real) #取整
+        self.container_size = int(self.container_size.real) #取整获得实际的大小
 
         self.hash_amount = cmath.log(2) * (self.container_size) / (amount)
-        self.hash_amount = int(self.hash_amount.real)
-        self.hash_amount = 9;
+        self.hash_amount = int(self.hash_amount.real)  #素数的个数
 
         self.container = BitVector.BitVector(size = int(self.container_size)) #分配内存
 
@@ -69,31 +68,24 @@ class Bloom_Filter():
         for i in range(int(self.hash_amount)): #生成哈希函数
             self.hash.append(SimpleHash(self.container_size, self.hash_seeds[i]))
 
-        print(self.container_size)
-        print(self.hash_amount)
+        print("bloom size:" + str(self.container_size));
+        print("bloom prime sum:" + str(self.hash_amount));
         return
 
     def exists(self, value):
         '''存在返回真，否则返回假'''
         if value == None:
             return False
-        print("###")
         for func in self.hash :
-            print(func.hash(str(value)));
             if self.container[func.hash(str(value))] == 0 :
-                print("####")
                 return False
-        print("#####")
         return True
 
     def mark_value(self, value):
         '''value是要标记的元素'''
-        print("***");
         for func in self.hash :
-            print(func.hash(str(value)))
             self.container[func.hash(str(value))] = 1
 
-        print("****");
         return
 
 def test(n):

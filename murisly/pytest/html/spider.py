@@ -8,15 +8,10 @@ import bloomfilter
 
 
 def test():
-    a = [5, 7, 11, 13,17];
-    print(1 << 32)
 
-def main():
     s = "http://weibo.cn/%d";
     i = 1;
     while i < 2048:
-        if 0 == i % 10:
-            url_catch_queue.insert_url_intoqueue(s % i);
 
         i = i + 1;
         url_catch_queue.insert_url_intoqueue(s % i);
