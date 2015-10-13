@@ -5,6 +5,7 @@ from lxml import etree
 import getonepage
 import url_catch_queue
 import bloomfilter
+import xpath
 
 
 def test():
@@ -62,6 +63,8 @@ def main():
 
 #inserturl();
 
-main();
+#main();
+
+xpath.test();
 
 
