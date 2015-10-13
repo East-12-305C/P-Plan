@@ -106,11 +106,11 @@ class UrlQueue():
 
             minid = self.getmixid(cur);
             if minid is not None:
-                minid = int(minid + self.contain_size/2);
+                mixid = int(minid + self.contain_size/2);
 
-                cur.execute("select url from %s where id < %d" % (self.url_table_name, minid));
+                cur.execute("select url from %s where id between %d and %d" % (self.url_table_name, minid, mixid));
                 self.url_queue = list(cur.fetchall());
-                cur.execute("update %s set exist = 1 where id < %d" % (self.url_table_name, minid));
+                cur.execute("update %s set exist = 1 where id between %d and %d" % (self.url_table_name, minid, mixid));
                 conn.commit();
 
             cur.close()

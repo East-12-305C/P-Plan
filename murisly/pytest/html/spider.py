@@ -7,6 +7,11 @@ import url_catch_queue
 import bloomfilter
 
 
+def test():
+    base = "http://www.weibo.cn/%s";
+    urlqueue = url_catch_queue.UrlQueue();
+    urlqueue.inserturl(base % "8")
+
 def inserturl():
     i = 0;
     base = "http://www.weibo.cn/%s";
@@ -56,7 +61,9 @@ def main():
     #    print(element);
 
 
-geturl();
+test();
+
+#geturl();
 
 #inserturl();
 
