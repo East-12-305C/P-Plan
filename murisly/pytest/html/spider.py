@@ -4,19 +4,19 @@ import requests
 from lxml import etree
 import getonepage
 import url_catch_queue
+import bloomfilter
 
 
 def test():
-    s = "\%d";
+    a = [5, 7, 11, 13,17];
+    print(1 << 32)
+
+def main():
+    s = "http://weibo.cn/%d";
     i = 1;
-    a = 1929727134;
-    print(str(a));
-
-
     while i < 2048:
-        #if 0 == i % 10:
-            #print(i)
-            #url_catch_queue.insert_url_intoqueue(s % i);
+        if 0 == i % 10:
+            url_catch_queue.insert_url_intoqueue(s % i);
 
         i = i + 1;
         url_catch_queue.insert_url_intoqueue(s % i);
@@ -32,7 +32,6 @@ def main():
     url = 'http://weibo.cn/u/1931534830' #
     #url = 'http://weibo.cn/2864761164/follow';
     # html = requests.get(url).content
-
 
     '''
     html = requests.get(url, cookies = cook).content   #get byte
@@ -53,6 +52,9 @@ def main():
     #    print(element);
 
 
+
 test();
+
+main();
 
 

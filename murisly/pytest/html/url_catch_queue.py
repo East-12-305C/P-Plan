@@ -80,9 +80,10 @@ def insert_url_intoqueue(url):
                 urls_insert.append(url_queue.pop());
                 i = i + 1;
 
-            insert_into_database(urls_insert);
+            #insert_into_database(urls_insert);
 
         return 0;
+    print("?????" + url);
 
     print("++++++++" + str(url));
 
@@ -124,4 +125,8 @@ def get_url_fromqueue():
 
     print(url_queue);
     return url_queue.pop(0);
+
+def url_print():
+    for element in url_queue:
+        print(element);
 
