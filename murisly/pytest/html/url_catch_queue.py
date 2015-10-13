@@ -12,7 +12,7 @@ import bloomfilter
 url_table_name = "urls";
 url_queue = [];
 bfcontain = bloomfilter.Bloom_Filter();
-contain_size = 1024;
+contain_size = 4;
 
 def create_urltable(cursor):
     '''when a table is not exist, create it
@@ -62,16 +62,15 @@ def insert_into_database(urls):
         conn.close()
 
     except Exception:
-        print("exception...");
+        print("insert exception...");
 
 
 def insert_url_intoqueue(url):
     if not bfcontain.exists(url):
         bfcontain.mark_value(url);
 
-        if len(url_queue) < contain_size :
-            url_queue.append(url);
-        else:
+        url_queue.append(url);
+        if len(url_queue) > contain_size :
             urls_insert = [];
             i = 0;
             while i < contain_size / 2:
@@ -101,16 +100,18 @@ def get_url_formdatabase():
         cur = conn.cursor();
 
         minid = getmixid(cur);
-        minid = int(minid + contain_size/2);
+        if minid is not None:
+            minid = int(minid + contain_size/2);
 
-        cur.execute("select url from %s where id < %d" % (url_table_name, minid));
-        url_queue = list(cur.fetchall());
-        #cur.execute("delete url from %s where id < %d" % url_table_name, minid);
-        conn.commit()
+            cur.execute("select url from %s where id < %d" % (url_table_name, minid));
+            url_queue = list(cur.fetchall());
+            cur.execute("delete from %s where id < %d" % (url_table_name, minid));
+            conn.commit();
+
         cur.close()
         conn.close()
     except Exception:
-        print("exception...");
+        print("get exception...");
 
 
 def get_url_fromqueue():
@@ -120,8 +121,8 @@ def get_url_fromqueue():
     if len(url_queue) < 1 :
         get_url_formdatabase();
 
-    print(url_queue);
-    return url_queue.pop(0);
+    if len(url_queue) > 0 :
+        return url_queue.pop(0);
 
 def url_print():
     for element in url_queue:

@@ -7,16 +7,24 @@ import url_catch_queue
 import bloomfilter
 
 
-def test():
-
-    s = "http://weibo.cn/%d";
-    i = 1;
-    while i < 2048:
-
-        i = i + 1;
-        url_catch_queue.insert_url_intoqueue(s % i);
+def inserturl():
+    i = 0;
+    base = "http://www.weibo.cn/%s";
+    while i < 20:
+        url_catch_queue.insert_url_intoqueue(base % str(i));
+        i += 1;
 
 
+def geturl():
+
+    while True:
+        url = url_catch_queue.get_url_fromqueue();
+        if url is None:
+            break;
+
+        print(url);
+
+    return 0;
 
 def main():
     #urls = url_catch_queue.get_url_fromqueue();
@@ -47,9 +55,10 @@ def main():
     #    print(element);
 
 
+geturl();
 
-test();
+#inserturl();
 
-main();
+#main();
 
 
