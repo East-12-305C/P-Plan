@@ -9,122 +9,121 @@
 import pymysql
 import bloomfilter
 
-url_table_name = "urls";
-url_queue = [];
-bfcontain = bloomfilter.Bloom_Filter();
-contain_size = 4;
 
-def create_urltable(cursor):
-    '''when a table is not exist, create it
-       when it exist, do none
-    '''
+class UrlQueue():
+    def __init__(self, tablename = "urls", queueasize = 4, count = 1 << 26):
+        self.bloomfilter = bloomfilter.Bloom_Filter(count);
+        self.url_table_name = tablename;
+        self.contain_size = queueasize;
+        self.url_queue = [];
 
-    cursor.execute("show tables");
-    tables = cursor.fetchall();
 
-    ut_exist = False;
-    for element in tables:
-        if element[0] == url_table_name:
-            ut_exist = True;
-
-    if False == ut_exist:
-        print("create urls table...")
-        cursor.execute("create table %s(id int(16) not null auto_increment, url char(128) not null, PRIMARY KEY(id))" % url_table_name);
-        print("create urls table success...")
-        return 0;
-    else:
-        cursor.execute("select MAX(id) from %s" % url_table_name);
-        maxid = cursor.fetchone();
-        if maxid[0] is None:
+    def getmixid(self, cursor):
+        cursor.execute("select MIN(id) from %s" % self.url_table_name);
+        minid = cursor.fetchone();
+        if minid is None:
             return 0;
         else:
-            return maxid[0];
+            return minid[0];
 
 
-def insert_into_database(urls):
-    ''' urls is a url list
-    '''
-    try:
-        conn = pymysql.connect(host='localhost',user='root',passwd='sm%198809',db='test',port=3306)
-        cur = conn.cursor();
+    def create_urltable(self, cursor):
+        '''when a table is not exist, create it
+           when it exist, do none
+        '''
 
-        # create if not exist
-        maxid = create_urltable(cur);
+        cursor.execute("show tables");
+        tables = cursor.fetchall();
 
-        url_templet = "insert %s values(%d, '%s')";
-        for element in urls:
-            maxid = maxid + 1;
-            url = url_templet % (url_table_name, maxid, element);
-            cur.execute(url);
+        ut_exist = False;
+        for element in tables:
+            if element[0] == self.url_table_name:
+                ut_exist = True;
 
-        conn.commit()
-        cur.close()
-        conn.close()
-
-    except Exception:
-        print("insert exception...");
-
-
-def insert_url_intoqueue(url):
-    if not bfcontain.exists(url):
-        bfcontain.mark_value(url);
-
-        url_queue.append(url);
-        if len(url_queue) > contain_size :
-            urls_insert = [];
-            i = 0;
-            while i < contain_size / 2:
-                urls_insert.append(url_queue.pop());
-                i = i + 1;
-
-            insert_into_database(urls_insert);
-
-        return 0;
-    print("++++++++" + str(url));
+        if False == ut_exist:
+            print("create urls table...")
+            cursor.execute("create table %s(id int(16) not null auto_increment, url char(128) not null, PRIMARY KEY(id))" % self.url_table_name);
+            print("create urls table success...")
+            return 0;
+        else:
+            cursor.execute("select MAX(id) from %s" % self.url_table_name);
+            maxid = cursor.fetchone();
+            if maxid[0] is None:
+                return 0;
+            else:
+                return maxid[0];
 
 
-def getmixid(cursor):
-    cursor.execute("select MIN(id) from %s" % url_table_name);
-    minid = cursor.fetchone();
-    if minid is None:
-        return 0;
-    else:
-        return minid[0];
+    def insert_into_database(self, urls):
+        ''' urls is a url list
+        '''
+        try:
+            conn = pymysql.connect(host='localhost',user='root',passwd='sm%198809',db='test',port=3306)
+            cur = conn.cursor();
 
-def get_url_formdatabase():
-    '''get contain_size / 2 urls form database
-    '''
-    global url_queue;
-    try:
-        conn = pymysql.connect(host='localhost',user='root',passwd='sm%198809',db='test',port=3306)
-        cur = conn.cursor();
+            # create if not exist
+            maxid = self.create_urltable(cur);
 
-        minid = getmixid(cur);
-        if minid is not None:
-            minid = int(minid + contain_size/2);
+            url_templet = "insert %s values(%d, '%s')";
+            for element in urls:
+                maxid = maxid + 1;
+                url = url_templet % (self.url_table_name, maxid, element);
+                cur.execute(url);
 
-            cur.execute("select url from %s where id < %d" % (url_table_name, minid));
-            url_queue = list(cur.fetchall());
-            cur.execute("delete from %s where id < %d" % (url_table_name, minid));
-            conn.commit();
+            conn.commit()
+            cur.close()
+            conn.close()
 
-        cur.close()
-        conn.close()
-    except Exception:
-        print("get exception...");
+        except Exception:
+            print("insert exception...");
 
 
-def get_url_fromqueue():
-    '''get a url from the queue
-    '''
+    def get_url_formdatabase(self):
+        '''get contain_size / 2 urls form database
+        '''
+        try:
+            conn = pymysql.connect(host='localhost',user='root',passwd='sm%198809',db='test',port=3306)
+            cur = conn.cursor();
 
-    if len(url_queue) < 1 :
-        get_url_formdatabase();
+            minid = self.getmixid(cur);
+            if minid is not None:
+                minid = int(minid + self.contain_size/2);
 
-    if len(url_queue) > 0 :
-        return url_queue.pop(0);
+                cur.execute("select url from %s where id < %d" % (self.url_table_name, minid));
+                self.url_queue = list(cur.fetchall());
+                cur.execute("delete from %s where id < %d" % (self.url_table_name, minid));
+                conn.commit();
 
-def url_print():
-    for element in url_queue:
-        print(element);
+            cur.close()
+            conn.close()
+        except Exception:
+            print("get exception...");
+
+
+    def inserturl(self, url):
+        if not self.bloomfilter.exists(url):
+            self.bloomfilter.mark_value(url);
+
+            self.url_queue.append(url);
+            if len(self.url_queue) > self.contain_size :
+                urls_insert = [];
+                i = 0;
+                while i < self.contain_size / 2:
+                    urls_insert.append(self.url_queue.pop());
+                    i = i + 1;
+
+                self.insert_into_database(urls_insert);
+
+            return 0;
+        print("++++++++" + str(url));
+
+
+    def geturl(self):
+        if len(self.url_queue) < 1 :
+            self.get_url_formdatabase();
+
+        if len(self.url_queue) > 0 :
+            return self.url_queue.pop(0);
+
+
 

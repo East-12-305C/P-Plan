@@ -10,15 +10,16 @@ import bloomfilter
 def inserturl():
     i = 0;
     base = "http://www.weibo.cn/%s";
+    urlqueue = url_catch_queue.UrlQueue();
     while i < 20:
-        url_catch_queue.insert_url_intoqueue(base % str(i));
+        urlqueue.inserturl(base % str(i));
         i += 1;
 
 
 def geturl():
-
+    urlqueue = url_catch_queue.UrlQueue();
     while True:
-        url = url_catch_queue.get_url_fromqueue();
+        url = urlqueue.geturl();
         if url is None:
             break;
 
