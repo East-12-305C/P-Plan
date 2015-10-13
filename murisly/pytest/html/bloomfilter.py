@@ -19,7 +19,7 @@ def find_prime(n):
     '''找到从5开始的n个素书，使用素数筛法'''
 
     prime = []
-    i = 5
+    i = 5;
     while len(prime) != n:
         flag = False
         for j in prime:
@@ -32,6 +32,7 @@ def find_prime(n):
 
         if is_prime(i):
             prime.append(i)
+            i *= 2;
         i += 1
 
     return prime;
@@ -45,7 +46,7 @@ class SimpleHash():  #这里使用了bkdrhash的哈希算法
         ret = 0
         for i in range(len(value)):
             ret += self.seed*ret + ord(value[i])
-        return (self.cap-1) & ret    #控制哈系函数的值域
+        return  ret % (self.cap-1)   #控制哈系函数的值域
 
 class Bloom_Filter():
     '''     类名是Bloom_Fileter，初始化时传入数据的数量
@@ -57,7 +58,7 @@ class Bloom_Filter():
         self.container_size = int(self.container_size.real) #取整
 
         self.hash_amount = cmath.log(2) * (self.container_size) / (amount)
-        self.hash_amount = int(self.hash_amount.real)
+        self.hash_amount = int(self.hash_amount.real) #hash 函数的个数
 
         self.container = BitVector.BitVector(size = int(self.container_size)) #分配内存
 
@@ -68,21 +69,30 @@ class Bloom_Filter():
             self.hash.append(SimpleHash(self.container_size, self.hash_seeds[i]))
 
         print(self.container_size)
+        print(self.hash_amount)
         return
 
     def exists(self, value):
         '''存在返回真，否则返回假'''
         if value == None:
             return False
+        print("###")
         for func in self.hash :
+            print(func.hash(str(value)));
             if self.container[func.hash(str(value))] == 0 :
+                print("####")
                 return False
-            return True
+        print("#####")
+        return True
 
     def mark_value(self, value):
         '''value是要标记的元素'''
+        print("***");
         for func in self.hash :
+            print(func.hash(str(value)))
             self.container[func.hash(str(value))] = 1
+
+        print("****");
         return
 
 def test(n):
