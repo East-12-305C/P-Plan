@@ -17,10 +17,20 @@ def getWeiboContext(html):
     selector = etree.HTML(html)
 
     weibovalue = [];
-    content = selector.xpath('//span[@class="ctt"]')
+    #content = selector.xpath('//div/div/span[@class="cmt"]/../span[@class="ctt"]/text()');
+    #content = selector.xpath('//div/div/span[@class="ctt"]/text()');
+    content = selector.xpath('//body/div[@id]');
+
     for each in content:
-        if each.text is not None:
-            weibovalue.append(each.text);
+        if each is not None:
+            #a = each.xpath("//div[@id=%s]/span[@class='ctt']/text()" % each.attrib["id"]);
+            a = each.xpath("./div/span[@class='ctt']/text()");
+            print(''.join(a));
+            #a = each.xpath('//body/div[@id]'):
+            #print(each.attrib["id"]);
+            #each.xpath()
+            #print(type(each))
+            #weibovalue.append(each);
 
     return weibovalue;
 
