@@ -1,19 +1,25 @@
-﻿how to install mysql (安装)
+﻿1.how to install mysql (安装)
 password: east305c
-1. udo apt-get install mysql-server
-2. apt-get isntall mysql-client  
-3. sudo apt-get install libmysqlclient-dev
+. udo apt-get install mysql-server
+. apt-get isntall mysql-client  
+. sudo apt-get install libmysqlclient-dev
 
 
-windows install mysql 5.5.46
+2.windows install mysql 5.5.46
 click next to the end
 
 
-windows install python pymysql
+3.windows install python pymysql
 pip install pymysql
 version(0.6.7)
 
 
-windows bitvector install
+4.windows bitvector install
 下载源码，python setup.py install
+
+
+5.windows下安装 lxml
+下载 lxml-3.4.4-cp34-none-win32.whl
+.安装wheel ：pip install wheel
+.安装：pip install lxml-3.4.4-cp34-none-win32.whl(全路径)
 
