@@ -20,5 +20,6 @@ from testapp.views import *
 urlpatterns = [
     url(r'^$', home),
     url(r'^hello/$', hello),
+    url(r'^weibotest/$', weibotest),
     url(r'^admin/', include(admin.site.urls)),
 ]
