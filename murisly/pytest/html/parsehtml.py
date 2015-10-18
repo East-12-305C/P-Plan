@@ -125,12 +125,20 @@ class ParseHtml():
         user_id = None;
         user_follow = 0;
         user_interes = 0;
+        user_weibos = 0;
 
         selector = etree.HTML(html);
+
         content = selector.xpath('//td[@valign="top"]/div[@class="ut"]/a');
         for element in content:
             if element.text == "资料":
                 user_id = (element.attrib["href"][1:11]);
+
+        weibonum = selector.xpath('//div[@class="u"]/div[@class="tip2"]/span/text()');
+        #num = re.search(r'\d+', weibonum);
+        #print(num);
+        #if num is not None:
+        #    user_weibos = num.group(0);
 
         follow = selector.xpath('//div[@class="u"]/div[@class="tip2"]/a');
         for element in follow:
@@ -138,8 +146,7 @@ class ParseHtml():
                 start = element.text.find("[");
                 end = element.text.find("]");
                 user_interes = (element.text[start+1:end]);
-
-            if element.text.find("粉丝") >= 0:
+            elif element.text.find("粉丝") >= 0:
                 start = element.text.find("[");
                 end = element.text.find("]");
                 user_follow = (element.text[start+1:end]);
@@ -149,6 +156,7 @@ class ParseHtml():
             user["id"] = user_id;
             user["interes"] = user_interes;
             user["follow"] = user_follow;
+            user["weibos"] = user_weibos;
             return user;
         return None;
 
@@ -200,6 +208,7 @@ class ParseHtml():
             userinfo["id"] = userid["id"];
             userinfo["follow"] = userid["follow"];
             userinfo["interes"] = userid["interes"];
+            userinfo["weibos"] = userid["weibos"];
 
 
             interesList = set(self.getInterList(userid["id"]));

@@ -2,34 +2,53 @@
 
 import requests
 from lxml import etree
-import getonepage
 import url_catch_queue
 import bloomfilter
-import xpath
 import parsehtml
 import scriptcontrol
 import re
 import sys
+import time
 
 
 def test():
-    url = "http://weibo.cn/u/509958159/1234561302";
-    result = re.search(r'\d{10}', url);
-    print(type(result));
-    if result is not None:
-        print(result.group(0));
-    #print(result.group(1));
+    a= "微博[4321]";
+    b = re.search(r'(\d+)', a);
+    print(b.group(0));
+
 
 def main():
-    a = parsehtml.ParseHtml();
-    a, b = a.exetparse("http://weibo.cn/rmrb");
-    print(a);
-    print(len(b))
+    scriptcontrol.setStart();
+    #urlqueue = url_catch_queue.UrlQueue();
+    exceptTimes = 0;
+    while scriptcontrol.isContinue():
+        #try:
+        #url = urlqueue.geturl();
+        url = None;
+        if url is None:
+            url = "http://weibo.cn/rmrb";
+
+        a = parsehtml.ParseHtml();
+        info, b = a.exetparse(url);
+        print(info);
+
+        #for interes in b :
+        #    urlqueue.inserturl(interes);
+
+
+        #except Exception :
+        '''
+            nowtime = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()));
+            exceptTimes += 1;
+            print("main exception time: " + nowtime);
+            print("main exception time: " + str(exceptTimes));
+            '''
+
 
 
 
 if __name__ == "__main__":
-    scriptcontrol.setStop();
+    scriptcontrol.setStart();
     paramlen = (len(sys.argv));
     print("param num is : " + str(paramlen));
     if paramlen < 2:
