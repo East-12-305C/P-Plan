@@ -7,65 +7,39 @@ import url_catch_queue
 import bloomfilter
 import xpath
 import parsehtml
+import scriptcontrol
+import re
+import sys
 
 
 def test():
-    a = parsehtml.ParseHtml();
-    b, c = a.exetparse();
-    print(b, c);
-
-def inserturl():
-    i = 0;
-    base = "http://www.weibo.cn/%s";
-    urlqueue = url_catch_queue.UrlQueue();
-    while i < 20:
-        urlqueue.inserturl(base % str(i));
-        i += 1;
-
-
-def geturl():
-    urlqueue = url_catch_queue.UrlQueue();
-    while True:
-        url = urlqueue.geturl();
-        if url is None:
-            break;
-
-        print(url);
-
-    return 0;
+    url = "http://weibo.cn/u/509958159/1234561302";
+    result = re.search(r'\d{10}', url);
+    print(type(result));
+    if result is not None:
+        print(result.group(0));
+    #print(result.group(1));
 
 def main():
-
-    cook = {"Cookie": "_T_WM=48ec7041fc543364f6424622a3992524; SUB=_2A257Dz7iDeTxGeRG7VYW9i_NzTiIHXVY8EKqrDV6PUJbrdANLUPdkW0Dpvzy7xSdMTg8Y4Zo95O42YNPgQ..; gsid_CTandWM=4uoB5e0911Ct5h8dFhSw5c1fP2E"};
-    url = 'http://weibo.cn/u/1931534830' #
-    #url = 'http://weibo.cn/rmrb';
-    # html = requests.get(url).content
-
-
-    html = requests.get(url, cookies = cook).content   #get byte
-    #html = requests.get(url, cookies = cook).text   #get str
+    a = parsehtml.ParseHtml();
+    a, b = a.exetparse("http://weibo.cn/rmrb");
+    print(a);
+    print(len(b))
 
 
-    #change code way
-    #html = bytes(bytearray(html, encoding='utf-8'))
 
-    weibovalue = getonepage.getWeiboContext(html);
-    for element in weibovalue:
-        print(element);
-
-    context = getonepage.getWeiboUrl(html);
-    for element in context:
-        print(element);
-
-
-#test();
-
-#geturl();
-
-#inserturl();
-
-main();
-
-#xpath.test();
-
-
+if __name__ == "__main__":
+    scriptcontrol.setStop();
+    paramlen = (len(sys.argv));
+    print("param num is : " + str(paramlen));
+    if paramlen < 2:
+        main();
+    elif paramlen == 2 :
+        if sys.argv[1] == "start" :
+            main();
+        elif sys.argv[1] == "stop" :
+            main();
+        else :
+            print("param error");
+    else :
+        print("param error");
