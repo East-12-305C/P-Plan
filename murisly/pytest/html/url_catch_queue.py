@@ -8,143 +8,135 @@
      if then queue is empty, read 512 urls from the database
 '''
 
+import errormode
 import pymysql
 import bloomfilter
 import time
 
 
+class sqlOperate():
+    def __init__(self):
+        self.connect = None;
+        self.cursor =None;
+
+        self.url_alluser     = "alluser";
+        self.url_firstuser   = "firstuser";
+        self.url_unvisituser = "unvisituser";
+
+        try:
+            self.connect = pymysql.connect(host='localhost',user='root',passwd='east',db='spider',port=3306)
+            self.cursor = self.connect.cursor();
+
+            self.cursor.execute("show tables;");
+            tables = self.cursor.fetchall();
+
+            ut_firstuser = False;
+            ut_alluser = False;
+            ut_unvisituser = False;
+            for element in tables:
+                if element[0] == self.url_firstuser:
+                    ut_firstuser = True;
+                elif element[0] == self.url_alluser:
+                    ut_alluser = True;
+                elif element[0] == self.url_unvisituser:
+                    ut_unvisituser = True;
+
+            if False == ut_firstuser:
+                print("create firstuser table...")
+                self.cursor.execute("create table %s(id int(10) not null auto_increment, nickname char(32), sex tinyint(2), addrass char(10), birthday int(8), weibos int(6), follow int(9), interse int(5), PRIMARY KEY(id))" % self.url_firstuser);
+                print("create firstuser table success...")
+
+            if False == ut_alluser:
+                print("create alluser table...")
+                self.cursor.execute("create table %s(id int(10) not null auto_increment, nickname char(32) not null, PRIMARY KEY(id))" % self.url_alluser);
+                print("create alluser table success...")
+
+            if False == ut_unvisituser:
+                print("create unvisituser table...")
+                self.cursor.execute("create table %s(id int(10) not null auto_increment, PRIMARY KEY(id))" % self.url_unvisituser);
+                print("create unvisituser table success...")
+        except Exception:
+            errormode.errorWriting(__file__ + "sqlOperate");
+
+
+    def __del__(self):
+        self.cursor.close();
+        self.connect.close();
+
+
+    def getUnvisit(self, inum):
+        '''
+        从数据表中取出未访问的num个用户, 病从数据表中删除
+        :param num: 取出未访问的用户个数
+        :return: 返回未访问用户的表
+        '''
+        userids = None;
+        try:
+            self.cursor.execute("select * from %s limit 0, %d;" % (self.url_unvisituser, inum));
+            userids = self.cursor.fetchall()[0];
+            self.cursor.execute("delete * from %s limit 0, %d;" % (self.url_unvisituser, inum));
+        except Exception:
+            errormode.errorWriting(__file__ + "getUnvisit");
+
+        return userids;
+
+
+    def insertUnvisit(self, unList):
+        '''
+        将未访问的用户列表放到数据库中
+        :param unList: 为访问的数据库列表
+        :return:
+        '''
+
+        try:
+            for element in unList:
+                print("insert %s valuse(%s);" % (self.url_unvisituser, element));
+                self.cursor.execute("insert %s values(%s);" % (self.url_unvisituser, element));
+
+            self.connect.commit();
+
+        except Exception:
+            errormode.errorWriting(__file__ + "  insertUnvisit");
+
+    def getAlluser(self):
+        allids = [];
+        try:
+            self.cursor.execute("select id from %s;" % (self.url_alluser));
+            ret = self.cursor.fetchall();
+            if len(ret) > 0 :
+                for element in ret:
+                    allids.append(element[0]);
+        except Exception:
+            errormode.errorWriting(__file__ + "getAlluser");
+
+        return allids;
+
 class UrlQueue():
     def __init__(self, tablename = "firstuser", queueasize = 8, count = 1 << 26):
-
-        self.url_first = tablename;      #"firstuser"
-        self.url_alluser = "alluser";    #"alluser"
-        self.url_unvisituser = "unvisituser";    #"unvisituser"
+        self.sqlExec = sqlOperate();
 
         self.contain_size = queueasize;  #缓存队列的最大长度
         self.url_queue = [];             #缓存队列
-
-        self.connect = None;
-        self.create_urltable();
 
         self.bloomfilter = bloomfilter.Bloom_Filter(count);
         self.putdataurl_in_bloomfilter();
 
 
-    def create_urltable(self, cursor):
-        '''when a table is not exist, create it
-           when it exist, do none
-        '''
-
-        cursor.execute("show tables");
-        tables = cursor.fetchall();
-
-        ut_firstuser = False;
-        ut_alluser = False;
-        for element in tables:
-            if element[0] == self.url_firstuser:
-                ut_firstuser = True;
-            elif element[0] == self.url_alluser:
-                ut_alluser = True;
-
-        if False == ut_firstuser:
-            print("create firstuser table...")
-            cursor.execute("create table %s(id int(10) not null auto_increment, url char(32) not null, exist tinyint(2), PRIMARY KEY(id))" % self.url_firstuser);
-            print("create firstuser table success...")
-            return 0;
-
-        if False == ut_alluser:
-            print("create alluser table...")
-            cursor.execute("create table %s(id int(10) not null auto_increment, url char(32) not null, PRIMARY KEY(id))" % self.url_alluser);
-            print("create alluser table success...")
-            return 0;
-
-        # else:
-        #     cursor.execute("select MAX(id) from %s" % self.url_firstuser);
-        #     maxid = cursor.fetchone();
-        #     if maxid[0] is None:
-        #         return 0;
-        #     else:
-        #         return maxid[0];
-
-
     def putdataurl_in_bloomfilter(self):
-        try:
-            conn = pymysql.connect(host='localhost',user='root',passwd='east',db='test',port=3306)
-            cur = conn.cursor();
-            cur.execute("select * from %s" % self.url_firstuser);
 
-            urls = cur.fetchall();
-            for element in urls:
-                self.bloomfilter.mark_value(element[1]);
-
-            cur.close()
-            conn.close()
-
-        except Exception:
-            nowtime = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()));
-            print("UrlQueue exception time: " + nowtime);
-
+        alluser = self.sqlExec.getAlluser();
+        if alluser is not None:
+            for element in alluser:
+                self.bloomfilter.mark_value(element);
 
         return 0;
 
-    def getmixid(self, cursor):
-        cursor.execute("select MIN(id) from %s where exist = 0" % self.url_firstuser);
-        minid = cursor.fetchone();
-        if minid is None:
-            return 0;
-        else:
-            return minid[0];
 
+    def inserturl(self, url, nocheck = False):
+        if nocheck :
+            self.sqlExec.insertUnvisit(url);
+            return ;
 
-    def insert_into_database(self, urls):
-        ''' urls is a url list
-        '''
-        try:
-            conn = pymysql.connect(host='localhost',user='root',passwd='east',db='test',port=3306)
-            cur = conn.cursor();
-
-            # create if not exist
-            maxid = self.create_urltable(cur);
-
-            url_templet = "insert %s values(%d, '%s', 0)";
-            for element in urls:
-                maxid = maxid + 1;
-                url = url_templet % (self.url_firstuser, maxid, element);
-                cur.execute(url);
-
-            conn.commit()
-            cur.close()
-            conn.close()
-
-        except Exception:
-            nowtime = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()));
-            print("insert_into_database exception time: " + nowtime);
-
-
-    def get_url_formdatabase(self):
-        '''get contain_size / 2 urls form database
-        '''
-        try:
-            conn = pymysql.connect(host='localhost',user='root',passwd='east',db='test',port=3306)
-            cur = conn.cursor();
-
-            minid = self.getmixid(cur);
-            if minid is not None:
-                mixid = int(minid + self.contain_size/2);
-
-                cur.execute("select url from %s where id between %d and %d" % (self.url_firstuser, minid, mixid));
-                self.url_queue = list(cur.fetchall());
-                cur.execute("update %s set exist = 1 where id between %d and %d" % (self.url_firstuser, minid, mixid));
-                conn.commit();
-
-            cur.close()
-            conn.close()
-        except Exception:
-            nowtime = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()));
-            print("get_url_formdatabase exception time: " + nowtime);
-
-
-    def inserturl(self, url):
         if not self.bloomfilter.exists(url):
             self.bloomfilter.mark_value(url);
 
@@ -156,20 +148,20 @@ class UrlQueue():
                     urls_insert.append(self.url_queue.pop());
                     i = i + 1;
 
-                self.insert_into_database(urls_insert);
+                self.sqlExec.insertUnvisit(urls_insert);
 
             return 0;
-        print("++++++++" + str(url));
+        print("already exist user :" + str(url));
 
 
     def geturl(self):
         if len(self.url_queue) < 1 :
-            self.get_url_formdatabase();
-
+            self.url_queue = list(self.sqlExec.getUnvisit(int(self.contain_size / 2)));
         if len(self.url_queue) > 0 :
             return self.url_queue.pop(0);
         else :
             return None;
 
 
-
+    def stop(self):
+        self.inserturl(self.url_queue, True);

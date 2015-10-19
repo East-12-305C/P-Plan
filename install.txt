@@ -169,6 +169,8 @@ mysql -u root -p
 
 修改数据库密码
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('newpass');
+#update user set password=password("east") where user="root";
+flush privileges;
 
 
 安装pymysql支持
