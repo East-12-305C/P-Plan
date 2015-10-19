@@ -17,3 +17,45 @@ version(0.6.7)
 windows bitvector install
 下载源码，python setup.py install
 
+
+nginx + django + uwsgi + python 简要步骤
+1.安装 nginx
+修改nginx.conf 文件
+
+server {
+        listen          80;
+        server_name     10.1.6.79;
+        access_log      /var/log/nginx/example_access.log;
+        error_log       /var/log/nginx/example_error.log;
+        root            /var/www/example;
+        location / {
+            uwsgi_pass      127.0.0.1:9001;
+            include         uwsgi_params;
+            uwsgi_param     UWSGI_SCHEME $scheme;
+            uwsgi_param     SERVER_SOFTWARE    nginx/$nginx_version;
+        }
+}
+
+2.安装django
+3.安装uwsgi
+写配置文件
+<uwsgi>
+        <socket>:8008</socket>
+        <!--chmod-socket>777</chmod-socket-->
+        <pythonpath>/home/pplan/P-Plan/murisly/eastsite/eastmain</pythonpath>
+        <module>eastmain.wsgi</module>
+        <master>true</master>
+        <processes>1</processes>
+<!--
+        <enable-threads>true</enable-threads>
+        <logdate>true</logdate>
+        <harakiri>60</harakiri>
+        <reload-mercy>8</reload-mercy>
+        <max-requests>200</max-requests>
+        <limit-as>512</limit-as>
+        <reload-on-as>256</reload-on-as>
+        <reload-on-rss>192</reload-on-rss>
+-->
+</uwsgi>
+
+4.安装python
