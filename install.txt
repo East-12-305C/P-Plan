@@ -1,21 +1,245 @@
-﻿how to install mysql (安装)
-password: east305c
-1. udo apt-get install mysql-server
-2. apt-get isntall mysql-client  
-3. sudo apt-get install libmysqlclient-dev
+﻿P-Plan project config
+
+
+i-25gpxqip5
+east2015
+
+北京可用区B	
+101.200.207.102 (公)
+10.44.149.86 (内)
+
+CPU： 1核    内存： 1024 MB
+带宽：1Mbps
+
+root账户
+账户名：root
+密码:East2015
+
+安装软件之前需要更新源 
+apt-get update
+
+
+1.创建用户
+adduser east
+passwd east305
+
+
+2.安装git(取回git上的代码)
+apt-get install git
+
+生成秘钥：(后面是git 的邮箱)
+ssh-keygen -t rsa -C “*******@qq.com”
+按3个回车，密码为空
+最后得到了两个文件：id_rsa和id_rsa.pub
+
+切换到root 安装lrzsz，取回秘钥文件：
+apt-get install lrzsz
+取回公钥文件，复制里面的值，然后在git上P-Plan的主页 setting里面添加 公钥
+
+测试ssh是否安装完成：
+ssh git@github.com
+
+PTY allocation request failed on channel 0
+Hi East-12-305C/P-Plan! You've successfully authenticated, but GitHub does not provide shell access.
+Connection to github.com closed.
+表示添加成功！
+
+
+在主目录下取回代码
+git clone git@github.com:East-12-305C/P-Plan.git
+
+取回分支(取回远程murislu分支到本地，并且命名为murisly)
+git checkout -b murisly origin/murisly
+
+
+3.安装python3.4
+apt-get install python3.4
+需要将python命令指向 python3.4
+rm /usr/bin/python
+ln -s /usr/bin/python3.4 /usr/bin/python
+
+安装pip(直接安装最新版)
+agt-get install python3-pip
+
+pip 自己更新
+pip3 install --upgrade pip
+
+pip安装 django(直接安装最新版)
+pip3 install django
+
+pip安装 request(直接安装最新版)
+pip3 install request
+
+pip安装lxml(依赖于 libxml，libxslt)
+apt-get install libxml2 libxml-dev
+apt-get install libxml2 libxml
+apt-get install libxml2 libxslt1-dev
+
+
+pip安装 bitvector
+下载源码，python setup.py install
+
+
+windows下安装 lxml
+下载 lxml-3.4.4-cp34-none-win32.whl
+.安装wheel ：pip install wheel
+.安装：pip install lxml-3.4.4-cp34-none-win32.whl(全路径)
+
+列举已经安装pip包
+pip3 list
+
+
+所有安装包
+---------------------------------------------------------------
+bitvector (3.4.4)
+Django (1.8.4)
+lxml (3.4.4)
+pip (1.5.6)
+PyMySQL (0.6.7)
+requests (2.7.0)
+setuptools (2.1)
+wheel (0.26.0)
+---------------------------------------------------------------
+
+
+4.安装nginx(1.8稳定版)
+--1安装pcre库(8.37)
+官网 http://www.pcre.org/
+
+下载
+wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.21.tar.gz
+解压，检查安装环境
+./configure
+编译
+make
+安装
+make install
+
+
+--2安装zlib库(1.2.8)
+下载
+wget http://zlib.net/zlib-1.2.8.tar.gz
+解压，检查安装环境
+./configure
+编译
+make
+安装
+make install
+
+
+--3安装openssl库(1.0.2)
+下载
+wget http://www.openssl.org/source/openssl-1.0.2d.tar.gz
+解压，检查安装环境
+./config
+编译
+make
+安装
+make install
+
+
+--4nginx安装
+下载
+http://nginx.org/en/download.html 下载1.8版
+解压，检查安装环境
+./configure
+编译
+make
+安装
+make install
+启动
+su root
+/usr/local/nginx/sbin/nginx
+
+
+浏览器输入 
+http://101.200.207.102/
+可以直接看到nginx已经启动
+
+   
+
+5.安装mysql(默认 5.5.44)
+password: east
+udo apt-get install mysql-server
+apt-get isntall mysql-client  
+sudo apt-get install libmysqlclient-dev
+
+进入mysql 
+mysql -u root -p
+
+安装pymysql支持
+pip3 install pymysql
 
 
 windows install mysql 5.5.46
 click next to the end
-
 
 windows install python pymysql
 pip install pymysql
 version(0.6.7)
 
 
-windows bitvector install
-下载源码，python setup.py install
+
+---------------------------------------------------------------
+配置 nginx，django，uwsgi
+
+ 33     server{
+ 34         lister 80;
+ 35         server_name localhost;
+ 36 
+ 37         localtion / {
+ 38             include uwsgi_params;
+ 39             uwsgi_pass 127.0.0.1:8008;
+ 40         }
+ 41     }
+
+
+wsgi配置
+<uwsgi>
+        <socket>:8008</socket>
+        <!--chmod-socket>777</chmod-socket-->
+        <pythonpath>/home/pplan/P-Plan/murisly/eastsite/eastmain</pythonpath>
+        <module>eastmain.wsgi</module>
+        <master>true</master>
+        <processes>1</processes>
+<!--
+        <enable-threads>true</enable-threads>
+        <logdate>true</logdate>
+        <harakiri>60</harakiri>
+        <reload-mercy>8</reload-mercy>
+        <max-requests>200</max-requests>
+        <limit-as>512</limit-as>
+        <reload-on-as>256</reload-on-as>
+        <reload-on-rss>192</reload-on-rss>
+-->
+</uwsgi>
+
+
+数据表1 allusers所有ID
+---------------------------------------------------------------
+    id    |    nickname
+--------------------------------------------------------------- 
+  int(10) |    char (30)   
+---------------------------------------------------------------
+create table allusers(id int(10) auto_auto_increment, nikcname(50));
+
+
+数据表2 firstuser(粉丝大于100w)
+---------------------------------------------------------------------------------------
+    id    | nickname  |    sex     |  birthday |  wbnum  | interse | follow |
+---------------------------------------------------------------------------------------
+  int(10) | char (30) | tinyint(1) |   int(8)  |  int(6) |  int(5) | int(10)|
+---------------------------------------------------------------------------------------
+create table allusers(id int(10) auto_auto_increment, nikcname(50));
+
+
+数据表3 novisit(还没有访问的user)
+
+
+
+
+
+
 
 
 nginx + django + uwsgi + python 简要步骤

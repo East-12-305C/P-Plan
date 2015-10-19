@@ -1,3 +1,5 @@
+#coding=UTF-8
+
 '''
     this file is to provide the interface between the url queue and mysql
     1.put a new url in the queue end
@@ -8,10 +10,11 @@
 
 import pymysql
 import bloomfilter
+import time
 
 
 class UrlQueue():
-    def __init__(self, tablename = "urls", queueasize = 4, count = 1 << 26):
+    def __init__(self, tablename = "allusers", queueasize = 4, count = 1 << 26):
         self.bloomfilter = bloomfilter.Bloom_Filter(count);
         self.url_table_name = tablename;
         self.contain_size = queueasize;
@@ -33,7 +36,9 @@ class UrlQueue():
             conn.close()
 
         except Exception:
-            print("insert exception...");
+            nowtime = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()));
+            print("UrlQueue exception time: " + nowtime);
+
 
         return 0;
 
@@ -143,6 +148,8 @@ class UrlQueue():
 
         if len(self.url_queue) > 0 :
             return self.url_queue.pop(0);
+        else :
+            return None;
 
 
 
