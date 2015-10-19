@@ -16,7 +16,7 @@ special_tuple = ("&nbsp;", "&amp;", "&quot;", "&gt;", "&lt;");
 
 class ParseHtml():
     def __init__(self):
-        return None;
+        return ;
 
     def gethtml(self, url):
         '''
@@ -25,14 +25,22 @@ class ParseHtml():
         :return: html text
         '''
 
-        cook = {"Cookie": "_T_WM=48ec7041fc543364f6424622a3992524; SUB=_2A257Dz7iDeTxGeRG7VYW9i_NzTiIHXVY8EKqrDV6PUJbrdANLUPdkW0Dpvzy7xSdMTg8Y4Zo95O42YNPgQ..; gsid_CTandWM=4uoB5e0911Ct5h8dFhSw5c1fP2E"};
-        #url = 'http://weibo.cn/rmrb';
-        # html = requests.get(url).content
+        #5992499741#
+        #cook = {"Cookie": "_T_WM=48ec7041fc543364f6424622a3992524; SUB=_2A257Dz7iDeTxGeRG7VYW9i_NzTiIHXVY8EKqrDV6PUJbrdANLUPdkW0Dpvzy7xSdMTg8Y4Zo95O42YNPgQ..; gsid_CTandWM=4uoB5e0911Ct5h8dFhSw5c1fP2E"};
+        cook = {"Cookie": "_T_WM=67106e8330d7583086a96a27f89bbe78; SUB=_2A257INIzDeTxGeRG7VYW9i_NzTiIHXVY6v57rDV6PUJbrdANLRLVkW03I-hFmxV4_ldVNwl2Nd1mvtWdMg..; gsid_CTandWM=4u3Jfccf1MVC9Qp3wJK5pc1fP2E"};
 
-        #html = requests.get(url, cookies = cook).content   #get byte
+        # yiwei0244782920@163.com
+        #cook = {"Cookie": "_T_WM=67106e8330d7583086a96a27f89bbe78; SUB=_2A257INFzDeTxGeNP6VUV9S3KyjWIHXVY6v87rDV6PUJbvNAKLUPmkW0dLL8g0lXGGMYltZeHPvonNwdcmw..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhH-QzAXKFCsAAh-E0gPjhy5JpX5K-t; SUHB=0XD13o1lBtzZK8; SSOLoginState=1445241123"}
+
+
+        proxies = {
+            "https": "http://220.248.224.242:8089",
+        }
+
+
+        #html = requests.get(url, cookies = cook, proxies=proxies).text   #get str
         html = requests.get(url, cookies = cook).text   #get str
 
-        #html = html.decode();
 
         # replcae special symbol
         for element in special_tuple:
@@ -67,7 +75,7 @@ class ParseHtml():
         }
         '''
 
-        url = "http://weibo.cn/" + userid + "/info";
+        url = "http://weibo.cn/" + userid + "/info?retcode=6102";
         html = self.gethtml(url);
         selector = etree.HTML(html);
 
@@ -135,10 +143,10 @@ class ParseHtml():
                 user_id = (element.attrib["href"][1:11]);
 
         weibonum = selector.xpath('//div[@class="u"]/div[@class="tip2"]/span/text()');
-        #num = re.search(r'\d+', weibonum);
-        #print(num);
-        #if num is not None:
-        #    user_weibos = num.group(0);
+        if len(weibonum) > 0 :
+            num = re.search(r'\d+', weibonum[0]);
+            if num is not None:
+                user_weibos = num.group(0);
 
         follow = selector.xpath('//div[@class="u"]/div[@class="tip2"]/a');
         for element in follow:
@@ -211,7 +219,8 @@ class ParseHtml():
             userinfo["weibos"] = userid["weibos"];
 
 
-            interesList = set(self.getInterList(userid["id"]));
+            interesList = None;
+            #interesList = set(self.getInterList(userid["id"]));
             return userinfo, interesList;
 
-        return None;
+        return None, None;

@@ -9,45 +9,53 @@ import scriptcontrol
 import re
 import sys
 import time
+import types
 
 
-def test():
-    a= "微博[4321]";
-    b = re.search(r'(\d+)', a);
-    print(b.group(0));
+def test( *param ):
+    # if type(param[0]) is types.FunctionType:
+    #     print("fadsf");
+    print(type(param[0]));
+    print(param[0](param[1]));
 
 
 def main():
+    return 0;
     scriptcontrol.setStart();
-    #urlqueue = url_catch_queue.UrlQueue();
+    urlqueue = url_catch_queue.UrlQueue();
     exceptTimes = 0;
     while scriptcontrol.isContinue():
-        #try:
-        #url = urlqueue.geturl();
-        url = None;
-        if url is None:
-            url = "http://weibo.cn/rmrb";
+    #while exceptTimes < 1 :
+        exceptTimes += 1;
+        try:
+            url = urlqueue.geturl();
 
-        a = parsehtml.ParseHtml();
-        info, b = a.exetparse(url);
-        print(info);
+            if url is None:
+                url = "http://weibo.cn/rmrb";
 
-        #for interes in b :
-        #    urlqueue.inserturl(interes);
+            a = parsehtml.ParseHtml();
+            info, b = a.exetparse(url);
+            print(type(info));
+            print((info));
+
+            #for interes in b :
+            #    urlqueue.inserturl(interes);
 
 
-        #except Exception :
-        '''
+        except Exception :
             nowtime = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()));
             exceptTimes += 1;
             print("main exception time: " + nowtime);
             print("main exception time: " + str(exceptTimes));
-            '''
 
+
+def fablac(n):
+    return n + 1;
 
 
 
 if __name__ == "__main__":
+    test(fablac,2,3,4,5);
     scriptcontrol.setStart();
     paramlen = (len(sys.argv));
     print("param num is : " + str(paramlen));

@@ -167,6 +167,10 @@ sudo apt-get install libmysqlclient-dev
 进入mysql 
 mysql -u root -p
 
+修改数据库密码
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('newpass');
+
+
 安装pymysql支持
 pip3 install pymysql
 
@@ -217,9 +221,9 @@ wsgi配置
 
 数据表1 allusers所有ID
 ---------------------------------------------------------------
-    id    |    nickname
+    id    |    nickname  |
 --------------------------------------------------------------- 
-  int(10) |    char (30)   
+  int(10) |    char (30) |
 ---------------------------------------------------------------
 create table allusers(id int(10) auto_auto_increment, nikcname(50));
 
@@ -231,6 +235,14 @@ create table allusers(id int(10) auto_auto_increment, nikcname(50));
   int(10) | char (30) | tinyint(1) |   int(8)  |  int(6) |  int(5) | int(10)|
 ---------------------------------------------------------------------------------------
 create table allusers(id int(10) auto_auto_increment, nikcname(50));
+
+数据表3 novisit 节点
+---------------------------------------------------------------
+    id    |
+--------------------------------------------------------------- 
+  int(10) |
+---------------------------------------------------------------
+
 
 
 数据表3 novisit(还没有访问的user)
