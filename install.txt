@@ -183,6 +183,30 @@ pip install pymysql
 version(0.6.7)
 
 
+windows 下停止mysql服务
+net stop mysql
+启动
+net start mysql
+
+显示字符集
+show variables like 'character%';
+修改安装目录下 my.ini 文件中的字符特征
+
+修改表的字符集
+alter table firstuser convert to charset gbk;
+
+
+修改数据库的编码
+alter database spider charset utf8;
+
+显示创建表的信息
+SHOW CREATE TABLE alluser;
+
+
+查看数据库编码：
+show create database spider;
+
+
 
 ---------------------------------------------------------------
 配置 nginx，django，uwsgi
