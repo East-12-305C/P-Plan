@@ -169,8 +169,6 @@ mysql -u root -p
 
 修改数据库密码
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('newpass');
-#update user set password=password("east") where user="root";
-flush privileges;
 
 
 安装pymysql支持
@@ -221,13 +219,15 @@ wsgi配置
 </uwsgi>
 
 
-数据表1 allusers所有ID
+数据表1 allusers 所有ID
 ---------------------------------------------------------------
     id    |    nickname  |
 --------------------------------------------------------------- 
   int(10) |    char (30) |
 ---------------------------------------------------------------
 create table allusers(id int(10) auto_auto_increment, nikcname(50));
+
+INSERT allusers values (1, "") ON DUPLICATE KEY UPDATE nickname = "tom";
 
 
 数据表2 firstuser(粉丝大于100w)
@@ -238,13 +238,14 @@ create table allusers(id int(10) auto_auto_increment, nikcname(50));
 ---------------------------------------------------------------------------------------
 create table allusers(id int(10) auto_auto_increment, nikcname(50));
 
-数据表3 novisit 节点
+数据表3 novisituser 节点
 ---------------------------------------------------------------
     id    |
 --------------------------------------------------------------- 
   int(10) |
 ---------------------------------------------------------------
 
+INSERT unvisituser values (1) ON DUPLICATE KEY UPDATE;
 
 
 数据表3 novisit(还没有访问的user)

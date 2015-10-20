@@ -43,7 +43,7 @@ class sqlOperate():
 
             if False == ut_firstuser:
                 print("create firstuser table...")
-                self.cursor.execute("create table %s(id int(10) not null auto_increment, nickname char(32), sex tinyint(2), addrass char(10), birthday int(8), weibos int(6), follow int(9), interse int(5), PRIMARY KEY(id))" % self.url_firstuser);
+                self.cursor.execute("create table %s(id int(10) not null auto_increment, nickname char(32), sex tinyint(2), address char(10), birthday int(8), weibos int(6), follow int(9), interes int(5), PRIMARY KEY(id))" % self.url_firstuser);
                 print("create firstuser table success...")
 
             if False == ut_alluser:
@@ -56,7 +56,7 @@ class sqlOperate():
                 self.cursor.execute("create table %s(id int(10) not null auto_increment, PRIMARY KEY(id))" % self.url_unvisituser);
                 print("create unvisituser table success...")
         except Exception:
-            errormode.errorWriting(__file__ + "sqlOperate");
+            errormode.errorWriting(__file__ + "  sqlOperate");
 
 
     def __del__(self):
@@ -70,13 +70,15 @@ class sqlOperate():
         :param num: 取出未访问的用户个数
         :return: 返回未访问用户的表
         '''
-        userids = None;
+        userids = [];
         try:
-            self.cursor.execute("select * from %s limit 0, %d;" % (self.url_unvisituser, inum));
-            userids = self.cursor.fetchall()[0];
-            self.cursor.execute("delete * from %s limit 0, %d;" % (self.url_unvisituser, inum));
+            self.cursor.execute("select * from %s limit %d;" % (self.url_unvisituser, inum));
+            ret = self.cursor.fetchall();
+            if len(ret) > 0 :
+                userids = ret[0];
+            self.cursor.execute("delete from %s limit %d;" % (self.url_unvisituser, inum));
         except Exception:
-            errormode.errorWriting(__file__ + "getUnvisit");
+            errormode.errorWriting(__file__ + "  getUnvisit");
 
         return userids;
 
@@ -107,11 +109,39 @@ class sqlOperate():
                 for element in ret:
                     allids.append(element[0]);
         except Exception:
-            errormode.errorWriting(__file__ + "getAlluser");
+            errormode.errorWriting(__file__ + "  getAlluser");
 
         return allids;
 
+    def updateAlluser(self, userid, nickname):
+        try:
+            self.cursor.execute("INSERT allusers values (%d, %s) ON DUPLICATE KEY UPDATE nickname = %s;" % (int(userid), nickname, nickname));
+            self.connect.commit();
+        except Exception:
+            errormode.errorWriting(__file__ + "  updateAlluser");
+
+    def updateFirstuser(self, userinfo):
+        try:
+            id = userinfo["id"];
+            nickname = userinfo["nickname"];
+            sex = userinfo["sex"];
+            address = userinfo["address"];
+            birthday = userinfo["birthday"];
+            weibos = userinfo["weibos"];
+            follow = userinfo["follow"];
+            interes = userinfo["interes"];
+            a = 'INSERT firstuser values (%s,"%s",%s,"%s",%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nickname="%s",sex=%s,address="%s",birthday=%s,weibos=%s,follow=%s,interes=%s;' % (id,nickname,sex,address,birthday,weibos,follow,interes, nickname,sex,address,birthday,weibos,follow,interes);
+            self.cursor.execute(a);
+            self.connect.commit();
+        except Exception:
+            errormode.errorWriting(__file__ + "  updateFirstuser");
+
+
+
 class UrlQueue():
+    '''
+    缓存队列
+    '''
     def __init__(self, tablename = "firstuser", queueasize = 8, count = 1 << 26):
         self.sqlExec = sqlOperate();
 
@@ -164,4 +194,15 @@ class UrlQueue():
 
 
     def stop(self):
+        '''
+        停止时，把未访问的缓存队列中的内容放到数据库中
+        :return:
+        '''
         self.inserturl(self.url_queue, True);
+
+
+    def updateAlluser(self, userinfo):
+        self.sqlExec.updateAlluser(userinfo["id"], userinfo["nickname"]);
+
+    def updateFirstuser(self, userinfo):
+        self.sqlExec.updateFirstuser(userinfo);

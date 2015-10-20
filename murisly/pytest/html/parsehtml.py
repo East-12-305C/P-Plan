@@ -94,7 +94,14 @@ class ParseHtml():
 
             temp = (self.getsubinfo(element, "性别:"));
             if temp is not None:
-                userinfo["sex"] = temp;
+                if temp == "女" :
+                    userinfo["sex"] = "0";
+                elif temp == "男" :
+                    userinfo["sex"] = "1";
+                else :
+                    userinfo["sex"] = "2";
+            else:
+                userinfo["sex"] = "3";
 
             temp = (self.getsubinfo(element, "地区:"));
             if temp is not None:
@@ -220,7 +227,7 @@ class ParseHtml():
 
 
             interesList = None;
-            #interesList = set(self.getInterList(userid["id"]));
+            interesList = set(self.getInterList(userid["id"]));
             return userinfo, interesList;
 
         return None, None;
