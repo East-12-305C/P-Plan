@@ -8,12 +8,8 @@ def getuserinfo(name):
         conn = pymysql.connect(host='localhost', user='root', passwd='sm%198809', db='test', port=3306);
         cur=conn.cursor();
         
-        c = 'select * from urls where name = "%s"' % (name);
-        print(c);
-        cur.execute(c);
+        cur.execute('select * from urls where name = "%s"' % (name));
         info = cur.fetchall();
-        print("first:")        
-        print(info);
 
         cur.close();
         conn.close();

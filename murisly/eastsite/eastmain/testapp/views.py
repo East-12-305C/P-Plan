@@ -16,17 +16,29 @@ def home(request):
 def weibotest(request):
     name = request.GET.get("name");
     if name is None:
-        return render(request, 'home.html');
+        return render(request, 'weibotest.html');
     
-    info = getuserinfo(name);
-    print("second:")        
+    info = getuserinfo(name);      
     print(info);
 
     if info is None:
         return HttpResponse(str(name) + "is not exist");
 
-    if len(info) < 0:
+    if len(info) < 1:
         return HttpResponse("dont find this user");
 
+    ret = {};
+    ret["id"] = info[0][0];
+    ret["name"] = info[0][1];
+    ret["exist"] = info[0][2];
+    ret["follow"] = info[0][3];
+    return render_to_response('weiboret.html', ret);
+'''
     ret = "the id is:" + str(info[0][0]) + "    the name is:" + str(info[0][1] ) + "        is exist:" + str(info[0][2]) + "        follow is:" + str(info[0][3]);
-    return HttpResponse(ret);
+'''
+    #return render(request, 'weiboret.html');
+    #return HttpResponse("test");
+
+
+
+
