@@ -15,15 +15,16 @@ import pymysql
 
 
 def test():
-    sql = 'insert alluser values(6, "测试方法样子")'
-    gbkstr = sql.encode().decode();
+    sql = 'insert alluser values(11, "四大皆空降温哦好");'
+    #gbkstr = sql.encode().decode("utf-8");
 
     try:
         conn = pymysql.connect(host = 'localhost', user = 'root', passwd = 'east', db = 'spider', port=3306, charset="utf8")
         cur = conn.cursor()
 
         #cur.execute("create table %s(id bigint(10) not null auto_increment, nickname char(32) not null, PRIMARY KEY(id))" % "alluser");
-        cur.execute(gbkstr)
+        print(sql)
+        cur.execute(sql)
 
         conn.commit()
         cur.close()
