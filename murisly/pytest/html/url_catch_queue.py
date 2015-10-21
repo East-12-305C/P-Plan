@@ -43,19 +43,19 @@ class sqlOperate():
             if False == ut_firstuser:
                 print("create firstuser table...")
                 self.cursor.execute("create table %s(id bigint(10) not null auto_increment, nickname char(32), sex tinyint(2), address char(10), birthday int(8), weibos int(6), follow int(9), interes int(5), PRIMARY KEY(id))" % self.url_firstuser);
-                #self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_firstuser));
+                self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_firstuser));
                 print("create firstuser table success...")
 
             if False == ut_alluser:
                 print("create alluser table...")
                 self.cursor.execute("create table %s(id bigint(10) not null auto_increment, nickname char(32) not null, PRIMARY KEY(id))" % self.url_alluser);
-                #self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_alluser));
+                self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_alluser));
                 print("create alluser table success...")
 
             if False == ut_unvisituser:
                 print("create unvisituser table...")
                 self.cursor.execute("create table %s(id bigint(10) not null auto_increment, nums int, PRIMARY KEY(id))" % self.url_unvisituser);
-                #self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_unvisituser));
+                self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_unvisituser));
                 print("create unvisituser table success...")
         except Exception:
             errormode.errorWriting(__file__ + "  sqlOperate")
