@@ -21,7 +21,7 @@ def test():
     try:
         conn = pymysql.connect(host = 'localhost', user = 'root', passwd = 'east', db = 'spider', port=3306, charset="gbk")
         cur = conn.cursor()
-
+      
         cur.execute(gbkstr)
 
         conn.commit()
