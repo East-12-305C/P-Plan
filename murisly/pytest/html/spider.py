@@ -40,14 +40,15 @@ def main():
     scriptcontrol.setStart()
     urlqueue = url_catch_queue.UrlQueue()
     exceptTimes = 0
-    while scriptcontrol.isContinue():
-    #while exceptTimes < 10:
+    #while scriptcontrol.isContinue():
+    while exceptTimes < 1:
         exceptTimes += 1
         try:
             userid = urlqueue.geturl()
 
             if userid is None:
                 url = "http://weibo.cn/rmrb"
+                url = "http://weibo.cn/2100294813?retcode=6102";
             else:
                 url = "http://weibo.cn/%s" % userid
 
