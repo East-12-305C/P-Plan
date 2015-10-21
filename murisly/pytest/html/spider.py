@@ -15,28 +15,23 @@ import pymysql
 
 
 def test():
-    connect = pymysql.connect(host='localhost',user='root',passwd='east',db='spider',port=3306, charset="gbk")
-    cursor = connect.cursor()
+    try:
+        conn = pymysql.connect(host = 'localhost', user = 'root', passwd = 'east', db = 'spider', port=3306, charset="gbk")
+        cur = conn.cursor()
 
-    userinfo = {'weibos': '52780', 'id': '0331701', 'follow': '40001594', 'sex': '1', 'birthday': '19480615', 'interes': '1249', 'address': '北京', 'nickname': '人民日报'}
-    id = userinfo["id"]
-    nickname = userinfo["nickname"]
-    sex = userinfo["sex"]
-    address = userinfo["address"]
-    birthday = userinfo["birthday"]
-    weibos = userinfo["weibos"]
-    follow = userinfo["follow"]
-    interes = userinfo["interes"]
-    sql = "insert firstuser values(%s,'%s',%s,'%s',%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nickname='%s',sex=%s,address='%s',birthday=%s,weibos=%s,follow=%s,interes=%s;" % (id,nickname,sex,address,birthday,weibos,follow,interes, nickname,sex,address,birthday,weibos,follow,interes);
-    print(sql)
-    cursor.execute(sql)
-    connect.commit()
+        sql = 'insert alluser values(3, "测试")'
+        cur.execute(sql)
 
-    cursor.close()
-    connect.close()
+        conn.commit()
+        cur.close()
+        conn.close()
+
+    except Exception:
+        print("exception...")
 
 
 def main():
+    return 0;
     scriptcontrol.setStart()
     urlqueue = url_catch_queue.UrlQueue()
     exceptTimes = 0
@@ -72,7 +67,7 @@ def main():
     urlqueue.stop()
 
 if __name__ == "__main__":
-
+    test();
     scriptcontrol.setStart()
     paramlen = (len(sys.argv))
     print("param num is : " + str(paramlen))
