@@ -54,7 +54,7 @@ class sqlOperate():
 
             if False == ut_unvisituser:
                 print("create unvisituser table...")
-                self.cursor.execute("create table %s(id bigint(10) not null auto_increment, PRIMARY KEY(id))" % self.url_unvisituser);
+                self.cursor.execute("create table %s(id bigint(10) not null auto_increment, nums int, PRIMARY KEY(id))" % self.url_unvisituser);
                 #self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_unvisituser));
                 print("create unvisituser table success...")
         except Exception:
@@ -94,8 +94,8 @@ class sqlOperate():
 
         try:
             for element in unList:
-                print("insert %s valuse(%s);" % (self.url_unvisituser, element));
-                self.cursor.execute("insert %s values(%s);" % (self.url_unvisituser, element));
+                #print("insert %s valuse(%s);" % (self.url_unvisituser, element));
+                self.cursor.execute("insert %s values(%s, 0) ON DUPLICATE KEY UPDATE nums=nums+1;" % (self.url_unvisituser, element));
 
             self.connect.commit();
 
@@ -147,7 +147,7 @@ class UrlQueue():
     '''
     缓存队列
     '''
-    def __init__(self, tablename = "firstuser", queueasize = 8, count = 1 << 26):
+    def __init__(self, tablename = "firstuser", queueasize = 1024, count = 1 << 26):
         self.sqlExec = sqlOperate();
 
         self.contain_size = queueasize;  #缓存队列的最大长度
@@ -173,7 +173,7 @@ class UrlQueue():
             return ;
 
         if not self.bloomfilter.exists(url):
-            self.bloomfilter.mark_value(url);
+            #self.bloomfilter.mark_value(url);
 
             self.url_queue.append(url);
             if len(self.url_queue) > self.contain_size :
