@@ -169,6 +169,7 @@ mysql -u root -p
 
 修改数据库密码
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('newpass');
+FLUSH PRIVILEGES;
 
 
 安装pymysql支持
@@ -205,6 +206,21 @@ default-character-set=gbk
 character-set-server=utf8
 创建表的时候，修改表的字符集
 alter table firstuser convert to charset gbk;
+
+
+linux下修改mysql的字符集：
+在linux下修改mysql的配置文件my.cnf(vi /etc/my.cnf)文件位置默认/etc/my.cnf文件
+
+找到客户端配置[client] 在下面添加
+default-character-set=gbk 默认字符集为latin1
+再找到[mysqld] 添加
+default-character-set=utf8 默认字符集为utf8 或者 character-set-server=utf8
+
+停止服务：
+service mysql stop
+service mysql start
+
+
 
 
 
