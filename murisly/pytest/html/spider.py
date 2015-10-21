@@ -22,10 +22,7 @@ def test():
         conn = pymysql.connect(host = 'localhost', user = 'root', passwd = 'east', db = 'spider', port=3306, charset="gbk")
         cur = conn.cursor()
 
-<<<<<<< HEAD
-=======
         cur.execute(gbkstr)
->>>>>>> 4c9d95c4739449cb8b891a81c2e2783a50d71552
 
         conn.commit()
         cur.close()
