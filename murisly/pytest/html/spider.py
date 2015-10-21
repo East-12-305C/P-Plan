@@ -15,12 +15,14 @@ import pymysql
 
 
 def test():
+    sql = 'insert alluser values(5, "测试方法样子")'
+    gbkstr = sql.encode().decode();
+
     try:
         conn = pymysql.connect(host = 'localhost', user = 'root', passwd = 'east', db = 'spider', port=3306, charset="gbk")
         cur = conn.cursor()
 
-        sql = 'insert alluser values(3, "测试")'
-        cur.execute(sql)
+        cur.execute(gbkstr)
 
         conn.commit()
         cur.close()
