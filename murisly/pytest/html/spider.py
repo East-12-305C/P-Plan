@@ -41,7 +41,7 @@ def main():
     urlqueue = url_catch_queue.UrlQueue()
     exceptTimes = 0
     #while scriptcontrol.isContinue():
-    while exceptTimes < 5:
+    while exceptTimes < 1:
         exceptTimes += 1
         try:
             userid = urlqueue.geturl()
@@ -64,19 +64,15 @@ def main():
                 urlqueue.updateFirstuser(info)
 
             if urllist is not None:
-                for interes in urllist :
+                for interes in urllist:
                     urlqueue.inserturl(interes)
-
-
-        except Exception :
-            nowtime = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
+        except Exception:
+            nowtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
             exceptTimes += 1
             print("main exception time: " + nowtime)
             print("main exception time: " + str(exceptTimes))
 
     urlqueue.stop()
-
-
 
 if __name__ == "__main__":
 
@@ -94,4 +90,3 @@ if __name__ == "__main__":
             print("param error")
     else:
         print("param error")
-

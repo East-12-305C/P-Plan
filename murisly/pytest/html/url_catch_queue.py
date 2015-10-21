@@ -11,7 +11,6 @@
 import errormode
 import pymysql
 import bloomfilter
-import time
 
 
 class sqlOperate():
@@ -44,19 +43,19 @@ class sqlOperate():
             if False == ut_firstuser:
                 print("create firstuser table...")
                 self.cursor.execute("create table %s(id bigint(10) not null auto_increment, nickname char(32), sex tinyint(2), address char(10), birthday int(8), weibos int(6), follow int(9), interes int(5), PRIMARY KEY(id))" % self.url_firstuser);
-                self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_firstuser));
+                #self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_firstuser));
                 print("create firstuser table success...")
 
             if False == ut_alluser:
                 print("create alluser table...")
                 self.cursor.execute("create table %s(id bigint(10) not null auto_increment, nickname char(32) not null, PRIMARY KEY(id))" % self.url_alluser);
-                self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_alluser));
+                #self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_alluser));
                 print("create alluser table success...")
 
             if False == ut_unvisituser:
                 print("create unvisituser table...")
                 self.cursor.execute("create table %s(id bigint(10) not null auto_increment, PRIMARY KEY(id))" % self.url_unvisituser);
-                self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_unvisituser));
+                #self.cursor.execute("alter table %s convert to charset gbk;" % (self.url_unvisituser));
                 print("create unvisituser table success...")
         except Exception:
             errormode.errorWriting(__file__ + "  sqlOperate")
@@ -126,21 +125,19 @@ class sqlOperate():
             errormode.errorWriting(__file__ + "  updateAlluser");
 
     def updateFirstuser(self, userinfo):
-
-        id = userinfo["id"];
-        nickname = userinfo["nickname"];
-        sex = userinfo["sex"];
-        address = userinfo["address"];
-        birthday = userinfo["birthday"];
-        weibos = userinfo["weibos"];
-        follow = userinfo["follow"];
-        interes = userinfo["interes"];
-        sql = 'insert firstuser values(%s,"%s",%s,"%s",%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nickname="%s",sex=%s,address="%s",birthday=%s,weibos=%s,follow=%s,interes=%s;' % (id,nickname,sex,address,birthday,weibos,follow,interes, nickname,sex,address,birthday,weibos,follow,interes);
-        print(sql);
-        self.cursor.execute(sql);
-        self.connect.commit();
         try:
-            a = 1;
+            id = userinfo["id"];
+            nickname = userinfo["nickname"];
+            sex = userinfo["sex"];
+            address = userinfo["address"];
+            birthday = userinfo["birthday"];
+            weibos = userinfo["weibos"];
+            follow = userinfo["follow"];
+            interes = userinfo["interes"];
+            sql = 'insert firstuser values(%s,"%s",%s,"%s",%s,%s,%s,%s) ON DUPLICATE KEY UPDATE nickname="%s",sex=%s,address="%s",birthday=%s,weibos=%s,follow=%s,interes=%s;' % (id,nickname,sex,address,birthday,weibos,follow,interes, nickname,sex,address,birthday,weibos,follow,interes);
+            print(sql);
+            self.cursor.execute(sql);
+            self.connect.commit();
         except Exception:
             errormode.errorWriting(__file__ + "  updateFirstuser");
 
