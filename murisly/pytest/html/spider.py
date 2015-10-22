@@ -15,7 +15,7 @@ import pymysql
 
 
 def test():
-    sql = 'insert alluser values(11, "四大皆空降温哦好");'
+    sql = 'insert alluser values(11, "萨菲健康啊");'
     #gbkstr = sql.encode().decode("utf-8");
 
     try:
@@ -35,30 +35,32 @@ def test():
 
 
 def main():
-    return 0;
     scriptcontrol.setStart()
     urlqueue = url_catch_queue.UrlQueue()
     exceptTimes = 0
-    #while scriptcontrol.isContinue():
-    while exceptTimes < 1:
+    while scriptcontrol.isContinue():
+    #while exceptTimes < 2:
         exceptTimes += 1
         try:
             userid = urlqueue.geturl()
 
             if userid is None:
                 url = "http://weibo.cn/rmrb"
-                url = "http://weibo.cn/2100294813?retcode=6102";
             else:
                 url = "http://weibo.cn/%s" % userid
 
+            print(url);
             a = parsehtml.ParseHtml()
             info, urllist = a.exetparse(url);
             #info = {'weibos': '52780', 'id': '2803301701', 'follow': '40001594', 'sex': '1', 'birthday': '19480615', 'interes': '1249', 'address': '北京', 'nickname': '人民日报'}
             #urllist = {'1642591402', '1894467483', '2737798435', '3011694992', '2618638282', '2192630467', '3363206842', '3183107112', '1726918143', '2641686425', '1893801487', '1642512402', '1644948230'}
 
-            urlqueue.updateAlluser(info)
-            if int(info["follow"]) > 1000000:
-                urlqueue.updateFirstuser(info)
+            if info is None:
+                urlqueue.inserturl(list(userid));
+            else:
+                urlqueue.updateAlluser(info)
+                if int(info["follow"]) > 1000000:
+                    urlqueue.updateFirstuser(info)
 
             if urllist is not None:
                 for interes in urllist:
@@ -71,7 +73,7 @@ def main():
     urlqueue.stop()
 
 if __name__ == "__main__":
-    test();
+
     scriptcontrol.setStart()
     paramlen = (len(sys.argv))
     print("param num is : " + str(paramlen))
