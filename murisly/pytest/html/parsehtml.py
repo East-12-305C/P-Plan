@@ -22,7 +22,7 @@ class Cookies():
             #5992499741
             {"Cookie": "_T_WM=7267c27f388b035051df7cbf9ca6bc99; SUHB=0id61B0Ud4ESVB; SUB=_2A257LL5WDeTxGeRG7VYW9i_NzTiIHXVY7sIerDV6PUJbrdAKLWLWkW0bXCIHkamPezNQCxUw0pUWZ1W4Yw..; gsid_CTandWM=4uP537b31PKCYPwh6AVpPc1fP2E"},
             #shajiayechao3@163.com
-            {"Cookie": "_T_WM=7267c27f388b035051df7cbf9ca6bc99; SUB=_2A257LKGODeTxGeNP6VUV9S3KyTiIHXVY7s_GrDV6PUJbvNBeLRX_kW2Eqry2228q1i7LfWDcLMYJDslE0A..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF8dy3ua7XqE.c6EyrNNvu-5JpX5K-t; SUHB=0auQo9YeMioV9t; SSOLoginState=1445515742"},
+            {"Cookie": "_T_WM=7267c27f388b035051df7cbf9ca6bc99; SUB=_2A257LKYcDeTxGeNP6VUQ-SbEzDyIHXVY7spUrDV6PUJbvNBeLUzjkW1uG3XlV-dJ0mkcWoH3t7PLEDqlXQ..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF.0-J5o-HaXmNuGucM2qWQ5JpX5K-t; SUHB=0V51LM5pvDrm8m; SSOLoginState=1445516876"},
             #yiwei0244782920@163.com
             {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUB=_2A257LKTUDeTxGeNP6VUV9S3KyjWIHXVY7sycrDV6PUJbvNAKLWj5kW0ruylzSjcocPXL4Ixb5ypVvAvlzw..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhH-QzAXKFCsAAh-E0gPjhy5JpX5K-t; SUHB=0LcC9MwX3UB4fn; SSOLoginState=1445516420"},
             #que0216265194234@163.com
@@ -194,12 +194,35 @@ class ParseHtml():
                 end = element.text.find("]");
                 user_follow = (element.text[start+1:end]);
 
+        nickname = selector.xpath('//head/title/text()');
+        nickname = nickname[0][0:len(nickname)-4];
+
+        sex = 4;
+        address = "unknow"
+        info = selector.xpath('//td/div/span[@class="ctt"]/text()');
+        for element in info:
+            temp = str(element)
+            temp = temp.replace(nickname, "")
+            temp = temp.replace(" ", "")
+            pos = temp.find("/");
+            if pos >= 0 :
+                sex = temp[0:pos];
+                address = temp[pos + 1:];
+                if sex.find("男") >= 0:
+                    sex = 1;
+                elif sex.find("女") >= 0:
+                    sex = 0;
+
+
         if user_id is not None:
             user = {};
             user["id"] = user_id;
             user["interes"] = user_interes;
             user["follow"] = user_follow;
             user["weibos"] = user_weibos;
+            user["nickname"] = nickname;
+            user["sex"] = sex;
+            user["address"] = address;
             return user;
         return None;
 
@@ -247,15 +270,16 @@ class ParseHtml():
         userid = self.getuserid(html);
 
         if userid is not None:
-            userinfo = self.getuserinfo(userid["id"]);
-            userinfo["id"] = userid["id"];
-            userinfo["follow"] = userid["follow"];
-            userinfo["interes"] = userid["interes"];
-            userinfo["weibos"] = userid["weibos"];
+            userid["birthday"] = 0
+            # userinfo = self.getuserinfo(userid["id"]);
+            # userinfo["id"] = userid["id"];
+            # userinfo["follow"] = userid["follow"];
+            # userinfo["interes"] = userid["interes"];
+            # userinfo["weibos"] = userid["weibos"];
 
 
             interesList = None;
             interesList = set(self.getInterList(userid["id"]));
-            return userinfo, interesList;
+            return userid, interesList;
 
         return None, None;
