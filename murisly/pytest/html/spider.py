@@ -15,11 +15,38 @@ import pymysql
 
 
 def test():
-    return 0
+    special_tuple = ("&nbsp;", "&amp;", "&quot;", "&gt;", "&lt;")
+    url = "http://weibo.cn/2803301701"
+    cook = {"Cookie": "_T_WM=7267c27f388b035051df7cbf9ca6bc99; SUB=_2A257LKYcDeTxGeNP6VUQ-SbEzDyIHXVY7spUrDV6PUJbvNBeLUzjkW1uG3XlV-dJ0mkcWoH3t7PLEDqlXQ..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF.0-J5o-HaXmNuGucM2qWQ5JpX5K-t; SUHB=0V51LM5pvDrm8m; SSOLoginState=1445516876"};
+    html = requests.get(url, cookies = cook).text   #get str
 
+
+    # replcae special symbol
+    for element in special_tuple:
+        html = html.replace(element, " ");
+
+    html = html.encode();
+    selector = etree.HTML(html);
+    title = selector.xpath('//head/title/text()');
+    print(len(title))
+    title = title[0][0:len(title)-4];
+    print(title)
+
+    info = selector.xpath('//td/div/span[@class="ctt"]/text()');
+    for element in info:
+        temp = str(element)
+        temp = temp.replace(title, "")
+        temp = temp.replace(" ", "")
+        pos = temp.find("/");
+        if pos >= 0 :
+            sex = temp[0:pos];
+            address = temp[pos + 1:];
+            print(sex);
+            print(address);
+
+    A = 1
 
 def main():
-
     scriptcontrol.setStart()
     urlqueue = url_catch_queue.UrlQueue()
     urlget = parsehtml.ParseHtml()
@@ -60,7 +87,6 @@ def main():
     urlqueue.stop()
 
 if __name__ == "__main__":
-
     scriptcontrol.setStart()
     paramlen = (len(sys.argv))
     print("param num is : " + str(paramlen))
