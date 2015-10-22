@@ -104,6 +104,10 @@ class ParseHtml():
         selector = etree.HTML(html);
 
         userinfo = {};
+        userinfo["nickname"] = "########";
+        userinfo["sex"] = "4";
+        userinfo["address"] = "unknow";
+        userinfo["birthday"] = "0";
 
         info = selector.xpath('//body/div/text()');
         for element in info:
@@ -135,7 +139,7 @@ class ParseHtml():
             if temp is not None:
                 userinfo["birthday"] = temp.replace("-", "");
 
-        #print(userinfo);
+
         return userinfo;
 
     def getweibocontext(self, html):
@@ -207,7 +211,7 @@ class ParseHtml():
         '''
 
         interList = [];
-        pagemax = 21;
+        pagemax = 3;
         nowpage = 1;
         while nowpage < pagemax:
             url = "http://weibo.cn/" + userid + "/follow?page=" + str(nowpage);
