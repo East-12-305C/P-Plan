@@ -79,6 +79,7 @@ class sqlOperate():
             if len(ret) > 0 :
                 userids = ret[0]
             self.cursor.execute("delete from %s limit %d;" % (self.url_unvisituser, inum));
+            self.connect.commit();
         except Exception:
             errormode.errorWriting(__file__ + "  getUnvisit")
 

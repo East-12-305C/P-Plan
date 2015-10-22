@@ -8,14 +8,43 @@ the tools is xpath
 import requests
 from lxml import etree
 import re
+import time
 
 
 #special symbol
 special_tuple = ("&nbsp;", "&amp;", "&quot;", "&gt;", "&lt;");
 
 
+class Cookies():
+    def __init__(self):
+
+        self.cook = (
+            #5992499741
+            {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUHB=0laVh9358PpGW2; SUB=_2A257LAxsDeTxGeRG7VYW9i_NzTiIHXVY7pQkrDV6PUJbrdANLWL5kW1HncQ9Ijuwo_-QgfjWD9CZntCVGQ..; gsid_CTandWM=4uV9fccf15C48mlTwHtfUc1fP2E"},
+            #shajiayechao3@163.com
+            {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUB=_2A257LA6lDeTxGeNP6VUV9S3KyTiIHXVY7pLtrDV6PUJbvNANLWztkW2DhVGM9cZr_lN_0WSwOJtJ2onRIw..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF8dy3ua7XqE.c6EyrNNvu-5JpX5K-t; SUHB=0pHhFQ_aQXcjnH;"},
+            #yiwei0244782920@163.com
+            {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUB=_2A257LA85DeTxGeNP6VUV9S3KyjWIHXVY7pFxrDV6PUJbvNANLWzxkW2DvCjbsORee1-ICndItmHCJ68GuQ..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhH-QzAXKFCsAAh-E0gPjhy5JpX5K-t; SUHB=0D-ViRpcyO0QP0;"},
+            #que0216265194234@163.com
+            {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUB=_2A257LCuCDeTxGeNP6VUV9S3KyD6IHXVY7rXKrDV6PUJbvNANLVbCkW2I07nuYPec-c1LpMOGRO3P8lDZTA..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhaP-1W46VAN-K301KmZT6K5JpX5K-t; SUHB=0laVh9358PpGW2;"},
+        )
+
+        self.pos = 2;
+        self.length = len(self.cook);
+
+    def getCook(self):
+        self.pos += 1;
+        if self.pos >= self.length :
+            self.pos = 0;
+
+        return self.cook[self.pos];
+
+
+
+
 class ParseHtml():
     def __init__(self):
+        self.CookCreate = Cookies();
         return ;
 
     def gethtml(self, url):
@@ -25,13 +54,8 @@ class ParseHtml():
         :return: html text
         '''
 
-        #5992499741#
-        #cook = {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUB=_2A257I0s9DeTxGeRG7VYW9i_NzTiIHXVY7FV1rDV6PUJbrdANLVT2kW1JQdhM45_8-T_yn69i43Ev6NKDUw..; gsid_CTandWM=4u3Jfccf1MVC9Qp3wJK5pc1fP2E"};
-        #cook =  {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUB=_2A257Ixh6DeTxGeRG7VYW9i_NzTiIHXVY77gyrDV6PUJbrdAKLUajkW1M4Zy9frvE4n3LwAkGkV9DsBaxvQ..; gsid_CTandWM=4u3Jfccf1MVC9Qp3wJK5pc1fP2E"};
-
-        # yiwei0244782920@163.com
-        cook = {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUB=_2A257IxvJDeTxGeNP6VUV9S3KyjWIHXVY76WBrDV6PUJbvNANLUbfkW1u8uDss_T2pUFdcuHC3aJ_Vvgm9w..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhH-QzAXKFCsAAh-E0gPjhy5JpX5K-t; SUHB=0oU4TImSoQkn5a; SSOLoginState=1445424025"}
-
+        time.sleep(0.5);
+        cook = self.CookCreate.getCook();
 
         proxies = {
             "https": "http://220.248.224.242:8089",
@@ -75,7 +99,7 @@ class ParseHtml():
         }
         '''
 
-        url = "http://weibo.cn/" + userid + "/info?retcode=6102";
+        url = "http://weibo.cn/" + userid + "/info";
         html = self.gethtml(url);
         selector = etree.HTML(html);
 

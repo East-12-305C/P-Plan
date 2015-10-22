@@ -206,14 +206,16 @@ set names utf8;
 
 window下mysql字符集修改：
 修改安装目录下 my.ini 文件中的字符特征
-default-character-set=gbk
+default-character-set=utf8
 character-set-server=utf8
-创建表的时候，修改表的字符集
-alter table firstuser convert to charset gbk;
+在cmd下使用时
+set names gbk; # 可以看到数据的创建
+
+#创建表的时候，修改表的字符集
+#alter table firstuser convert to charset gbk;
 
 chcp 命令，
 chcp 65001  就是换成UTF-8代码页
-
 chcp 936 可以换回默认的GBK
 chcp 437 是美国英语
 
