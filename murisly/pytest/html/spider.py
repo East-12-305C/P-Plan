@@ -29,7 +29,6 @@ def main():
         exceptTimes += 1
         try:
             userid = urlqueue.geturl()
-            userid = None;
             if userid is None:
                 url = "http://weibo.cn/rmrb"
                 url = "http://weibo.cn/3044746573";
