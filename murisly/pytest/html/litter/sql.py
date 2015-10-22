@@ -1,19 +1,17 @@
+#coding=utf8
 import pymysql
 
-try:
-    conn=pymysql.connect(host='localhost',user='root',passwd='sm%198809',db='test',port=3306)
-    cur=conn.cursor()
+def sqltest():
+    try:
+        conn = pymysql.connect(host = 'localhost', user = 'root', passwd = 'east', db = 'spider', port=3306)
+        cur = conn.cursor()
 
-    cur.execute('insert info values(3, "lily")');
+        sql = 'insert alluser values(3, "测试")'
+        cur.execute(sql)
 
-    cur.execute('select * from info')
-    ret = cur.fetchall();
+        conn.commit()
+        cur.close()
+        conn.close()
 
-    for r in ret:
-        print(r);
-
-    conn.commit();
-    cur.close()
-    conn.close()
-except Exception:
-    print("exception...");
+    except Exception:
+        print("exception...")
