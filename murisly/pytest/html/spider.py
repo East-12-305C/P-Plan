@@ -15,7 +15,7 @@ import pymysql
 
 
 def test():
-    sql = 'insert alluser values(11, "萨菲健康啊");'
+    sql = 'insert alluser values(12, "过奖了三等奖凤梨酥");'
     #gbkstr = sql.encode().decode("utf-8");
 
     try:
