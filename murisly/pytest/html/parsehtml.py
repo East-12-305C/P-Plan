@@ -56,7 +56,7 @@ class ParseHtml():
 
         time.sleep(0.5);
         cook = self.CookCreate.getCook();
-        print(cook);
+
         proxies = {
             "https": "http://220.248.224.242:8089",
         }
@@ -251,7 +251,7 @@ class ParseHtml():
 
 
             interesList = None;
-            #interesList = set(self.getInterList(userid["id"]));
+            interesList = set(self.getInterList(userid["id"]));
             return userinfo, interesList;
 
         return None, None;
