@@ -20,7 +20,7 @@ class Cookies():
 
         self.cook = (
             #5992499741
-            {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUHB=0laVh9358PpGW2; SUB=_2A257LAxsDeTxGeRG7VYW9i_NzTiIHXVY7pQkrDV6PUJbrdANLWL5kW1HncQ9Ijuwo_-QgfjWD9CZntCVGQ..; gsid_CTandWM=4uV9fccf15C48mlTwHtfUc1fP2E"},
+            {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUHB=0D-ViRpcyO0QP0; SUB=_2A257LPVdDeTxGeRG7VYW9i_NzTiIHXVY7psVrDV6PUJbrdANLWvtkW2UewI_nvZWifRd6oCQRL65R3mG7g..; gsid_CTandWM=4uaQfccf1iRd4UTxTpiP9c1fP2E"},
             #shajiayechao3@163.com
             {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUB=_2A257LA6lDeTxGeNP6VUV9S3KyTiIHXVY7pLtrDV6PUJbvNANLWztkW2DhVGM9cZr_lN_0WSwOJtJ2onRIw..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF8dy3ua7XqE.c6EyrNNvu-5JpX5K-t; SUHB=0pHhFQ_aQXcjnH;"},
             #yiwei0244782920@163.com
@@ -56,7 +56,7 @@ class ParseHtml():
 
         time.sleep(0.5);
         cook = self.CookCreate.getCook();
-
+        print(cook);
         proxies = {
             "https": "http://220.248.224.242:8089",
         }

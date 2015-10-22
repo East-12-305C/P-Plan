@@ -37,6 +37,7 @@ def test():
 def main():
     scriptcontrol.setStart()
     urlqueue = url_catch_queue.UrlQueue()
+    urlget = parsehtml.ParseHtml()
     exceptTimes = 0
     while scriptcontrol.isContinue():
     #while exceptTimes < 2:
@@ -50,8 +51,8 @@ def main():
                 url = "http://weibo.cn/%s" % userid
 
             print(url);
-            a = parsehtml.ParseHtml()
-            info, urllist = a.exetparse(url);
+
+            info, urllist = urlget.exetparse(url);
             #info = {'weibos': '52780', 'id': '2803301701', 'follow': '40001594', 'sex': '1', 'birthday': '19480615', 'interes': '1249', 'address': '北京', 'nickname': '人民日报'}
             #urllist = {'1642591402', '1894467483', '2737798435', '3011694992', '2618638282', '2192630467', '3363206842', '3183107112', '1726918143', '2641686425', '1893801487', '1642512402', '1644948230'}
 
@@ -83,7 +84,7 @@ if __name__ == "__main__":
         if sys.argv[1] == "start":
             main()
         elif sys.argv[1] == "stop":
-            main()
+            scriptcontrol.setStop();
         else:
             print("param error")
     else:
