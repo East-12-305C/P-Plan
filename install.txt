@@ -160,7 +160,7 @@ http://101.200.207.102/
 
 5.安装mysql(默认 5.5.44)
 password: east
-udo apt-get install mysql-server
+sudo apt-get install mysql-server
 apt-get isntall mysql-client  
 sudo apt-get install libmysqlclient-dev
 
@@ -191,6 +191,7 @@ net start mysql
 
 显示字符集
 show variables like 'character%';
+show variables like "collation%";
 修改数据库的编码
 alter database spider charset utf8;
 
@@ -199,6 +200,9 @@ show create database spider;
 查看表的编码：
 show create table alluser;
 
+set names gbk;
+set names utf8;
+
 
 window下mysql字符集修改：
 修改安装目录下 my.ini 文件中的字符特征
@@ -206,6 +210,12 @@ default-character-set=gbk
 character-set-server=utf8
 创建表的时候，修改表的字符集
 alter table firstuser convert to charset gbk;
+
+chcp 命令，
+chcp 65001  就是换成UTF-8代码页
+
+chcp 936 可以换回默认的GBK
+chcp 437 是美国英语
 
 
 linux下修改mysql的字符集：
