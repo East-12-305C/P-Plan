@@ -102,6 +102,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#import os
-
+import os
+STATICFILES_DIRS =  os.path.join(os.path.dirname(__file__), '../static/').replace('\\','/')
 #TEMPLATE_DIRS = os.path.join(os.path.dirname(__file__), 'templates')

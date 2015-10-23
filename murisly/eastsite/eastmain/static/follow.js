@@ -47,7 +47,7 @@ $(function() {
 		background_color : '#EEEEEE',
 		data : data,
 		title : 'weibo follows liking',
-		subtitle : '10000 unit',
+		subtitle : '10000 per one',
 		footnote : 'data: east305',
 		width : 800,
 		height : 400,
