@@ -350,3 +350,17 @@ server {
 </uwsgi>
 
 4.安装python
+
+
+
+django配置js
+1、在外部的mysite目录下（也就是项目的根目录）建立static目录
+2、打开settings.py，添加：
+     import os
+     STATIC_URL = '/static/'
+     STATICFILES_DIRS=os.path.join(os.path.dirname(__file__), '../static/').replace('\\','/')
+
+3、打开urls.py,添加：
+  import settings
+  urlpatterns = patterns(
+  url( r'^static/(?P<path>.*)$','django.views.static.serve',{ 'document_root':settings.STATICFILES_DIRS })
