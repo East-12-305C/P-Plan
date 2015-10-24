@@ -11,6 +11,7 @@ import re
 import sys
 import time
 import pymysql
+import timerope
 
 
 
@@ -59,7 +60,7 @@ def main():
 
             if userid is None:
                 url = "http://weibo.cn/rmrb"
-                url = "http://weibo.cn/1826792401";
+                url = "http://weibo.cn/1291477752";
             else:
                 url = "http://weibo.cn/%s" % userid
 
@@ -70,6 +71,7 @@ def main():
             #urllist = {'1642591402', '1894467483', '2737798435', '3011694992', '2618638282', '2192630467', '3363206842', '3183107112', '1726918143', '2641686425', '1893801487', '1642512402', '1644948230'}
 
             if info is None:
+                print(url + " no visit")
                 urlqueue.inserturl(list(userid));
             else:
                 urlqueue.updateAlluser(info)
@@ -86,6 +88,12 @@ def main():
 
     urlqueue.stop()
 
+
+def setTimer():
+    liking = timerope.GetVips();
+    liking.start();
+    return 0
+
 if __name__ == "__main__":
     scriptcontrol.setStart()
     paramlen = (len(sys.argv))
@@ -97,6 +105,8 @@ if __name__ == "__main__":
             main()
         elif sys.argv[1] == "stop":
             scriptcontrol.setStop();
+        elif sys.argv[1] == "search":
+            setTimer();
         else:
             print("param error")
     else:

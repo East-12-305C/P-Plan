@@ -22,11 +22,11 @@ class Cookies():
             #5992499741
             {"Cookie": "_T_WM=5a94db465fc01d6cfcc519ef83799de1; SUB=_2A257LpbDDeTxGeRG7VYW9i_NzTiIHXVY0DqLrDV6PUJbrdANLRXSkW2T7cjZsPEA7zKakhe7mH1a5fxIeg..; gsid_CTandWM=4uw25e2a1RtFf9BfgESETc1fP2E"},
             #shajiayechao3@163.com
-            {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUB=_2A257LpZiDeTxGeNP6VUV9S3KyTiIHXVY0DoqrDV6PUJbvNBeLXfXkW0TZOK2CESM9XfkZjDBI7Z2wpzDHA..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF8dy3ua7XqE.c6EyrNNvu-5JpX5K-t; SUHB=0mxEJjAg6WhhWs; SSOLoginState=1445652019"},
+            #{"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUB=_2A257LpZiDeTxGeNP6VUV9S3KyTiIHXVY0DoqrDV6PUJbvNBeLXfXkW0TZOK2CESM9XfkZjDBI7Z2wpzDHA..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF8dy3ua7XqE.c6EyrNNvu-5JpX5K-t; SUHB=0mxEJjAg6WhhWs; SSOLoginState=1445652019"},
             #tezhong69239@163.com
-            {"Cookie": "SUB=_2A257LpfvDeTxGeNP6VUQ-SbEzT2IHXVY0DmnrDV6PUJbvNANLWGskW1h1wBSfSF4Sk-96ylmkWv44hjd1Q..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWL6A.u2VkuC0YVxrvvdvhd5JpX5K-t; SUHB=0btsSdENWIoEHB; SSOLoginState=1445652415; _T_WM=284b9e727183f6620af19e08e0e8e26c"},
+            {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUB=_2A257LpZiDeTxGeNP6VUV9S3KyTiIHXVY0DoqrDV6PUJbvNBeLXfXkW0TZOK2CESM9XfkZjDBI7Z2wpzDHA..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF8dy3ua7XqE.c6EyrNNvu-5JpX5K-t; SUHB=0mxEJjAg6WhhWs; SSOLoginState=1445652019"},
             #que0216265194234@163.com
-            {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUB=_2A257LCuCDeTxGeNP6VUV9S3KyD6IHXVY7rXKrDV6PUJbvNANLVbCkW2I07nuYPec-c1LpMOGRO3P8lDZTA..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhaP-1W46VAN-K301KmZT6K5JpX5K-t; SUHB=0laVh9358PpGW2;"},
+            {"Cookie": "SUB=_2A257LpfvDeTxGeNP6VUQ-SbEzT2IHXVY0DmnrDV6PUJbvNANLWGskW1h1wBSfSF4Sk-96ylmkWv44hjd1Q..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWL6A.u2VkuC0YVxrvvdvhd5JpX5K-t; SUHB=0btsSdENWIoEHB; SSOLoginState=1445652415; _T_WM=284b9e727183f6620af19e08e0e8e26c"},
         )
 
         self.pos = 0;
@@ -54,7 +54,7 @@ class ParseHtml():
         :return: html text
         '''
 
-        time.sleep(0.5);
+        time.sleep(0.4);
         cook = self.CookCreate.getCook();
 
         proxies = {
@@ -234,8 +234,8 @@ class ParseHtml():
         '''
 
         interList = [];
-        pagemax = 3;
-        nowpage = 1;
+        pagemax = 5;
+        nowpage = 3;
         while nowpage < pagemax:
             url = "http://weibo.cn/" + userid + "/follow?page=" + str(nowpage);
             html = self.gethtml(url);
