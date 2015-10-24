@@ -81,6 +81,9 @@ def main():
             if urllist is not None:
                 for interes in urllist:
                     urlqueue.inserturl(interes)
+            else:
+                print("no list")
+                
         except Exception:
             nowtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
             exceptTimes += 1
