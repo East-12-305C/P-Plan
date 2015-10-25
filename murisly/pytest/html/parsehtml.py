@@ -54,7 +54,7 @@ class ParseHtml():
         :return: html text
         '''
 
-        time.sleep(0.4);
+        #time.sleep(0.4);
         cook = self.CookCreate.getCook();
 
         proxies = {
