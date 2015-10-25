@@ -234,7 +234,7 @@ class ParseHtml():
         '''
 
         interList = [];
-        pagemax = 5;
+        pagemax = 6;
         nowpage = 3;
         while nowpage < pagemax:
             url = "http://weibo.cn/" + userid + "/follow?page=" + str(nowpage);
