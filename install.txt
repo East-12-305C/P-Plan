@@ -364,3 +364,13 @@ django配置js
   import settings
   urlpatterns = patterns(
   url( r'^static/(?P<path>.*)$','django.views.static.serve',{ 'document_root':settings.STATICFILES_DIRS })
+
+
+
+yiwei0244782920@163.com----aaasss33
+shajiayechao3@163.com----aaasss33 
+que0216265194234@163.com----aaasss33 
+tezhong69239@163.com----aaasss33 
+xie814403@163.com----aaasss33 
+liangan3553@163.com----aaasss33 
+nuojiaoxing900@163.com----aaasss33
