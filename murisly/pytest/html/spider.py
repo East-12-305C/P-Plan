@@ -60,7 +60,7 @@ def main():
 
             if userid is None:
                 url = "http://weibo.cn/rmrb"
-                url = "http://weibo.cn/1254433995";
+                url = "http://weibo.cn/5187664653";
             else:
                 userid = "".join(userid)
                 url = "http://weibo.cn/%s" % userid
