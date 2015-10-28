@@ -9,10 +9,9 @@ def getweibototal():
         conn = pymysql.connect(host='localhost', user='root', passwd='east', db='spider', port=3306, charset="utf8");
         cur = conn.cursor();
         
-        sql = 'select nickname,follow from firstuser order by follow desc limit 10;'
+        sql = 'select nickname,follow from firstuser order by follow desc;'
         cur.execute(sql);
-        
-        result = cur.fetchall();
+        ret = cur.fetchall();
         for element in ret:
             result[(str(element[0]))] = int(element[1]);
 
@@ -20,7 +19,7 @@ def getweibototal():
         cur.close();
         conn.close();
     except Exception:
-        print("database exception...");
+        print("mysql database exception...");
     
     return result;
 
