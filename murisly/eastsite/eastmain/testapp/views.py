@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response
 from testapp.mysqlhelper import *
 import collections
+import json
 
 
 def hello(request):
