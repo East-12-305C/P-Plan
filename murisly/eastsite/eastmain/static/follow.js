@@ -39,8 +39,8 @@ function showBar2D(data){
 			scale : [{
 				position : 'bottom',
 				start_scale : 0,
-				end_scale : 20000,
-				scale_space : 2500
+				end_scale : 200000000,
+				scale_space : 25000000
 			}]
 		},
 		animation : true,

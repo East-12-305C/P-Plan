@@ -12,8 +12,10 @@
     
     <div id='weibototal'></div>
     <script type="text/javascript" >
-    $(function(){;
-        var data = JSON.parse({{namelist}});
+    $(function(){
+        var raw = '{{namelist}}';
+        alert(typeof(raw));
+        var data = JSON.parse(raw);
         var tmp = {"name":"", "value": 0, "color":"#4572a7",};
         var d = [];
         for(var o in data){  
@@ -21,7 +23,7 @@
             tmp.value = data[o];
             d.push(tmp);
         }
-        showchart(d);
+        showBar2D(d);
         });
 	</script>
     

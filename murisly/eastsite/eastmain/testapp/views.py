@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from testapp.mysqlhelper import *
 import collections
 import json
+from django.utils.safestring import SafeString
 
 
 def hello(request):
@@ -19,7 +20,7 @@ def home(request):
     print("total:-----------------");
     print(type(weibodict))
     print(weibodict);
-    return render(request, 'home.html', {"namelist": weibodict});
+    return render(request, 'home.html', {"namelist": SafeString(weibodict)});
 
 def weibotest(request):
     name = request.GET.get("name");
