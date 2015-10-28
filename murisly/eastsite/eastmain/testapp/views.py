@@ -4,12 +4,13 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from testapp.mysqlhelper import *
+import mysqlhelper
 
 def hello(request):
     return HttpResponse("everyone, this a test east305c! write by python!");
 
 def home(request):
-    TutorialList = ["HTML", "CSS", "jQuery", "Python", "Django"]
+    weiboldict = mysqlhelper.getweibototal();
     welfunc = "this is a conbine!";
     return render(request, 'home.html', {"namelist": TutorialList});
 
