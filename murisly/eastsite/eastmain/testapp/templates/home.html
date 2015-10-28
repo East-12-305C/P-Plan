@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html>
-	<meta charset="UTF-8">
-	<head><title>weibo analyse</title></head>
-	<script type="text/javascript" src="static/ichart.1.2.1.min.js"></script>
-	<script type="text/javascript" src="static/follow.js"></script>
+    <meta charset="UTF-8">
+    <head><title>weibo analyse</title></head>
+    <script type="text/javascript" src="static/ichart.1.2.1.min.js"></script>
+    <script type="text/javascript" src="static/follow.js"></script>
 <body>
-	<br>
-	<h2 align="center">weibo analyse information</h3>  
-	<p align="center">grab time：2015/10/23</p>  
-	<p align="center"></p>
-	
-	<div id='canvasDiv'></div>
+    <br>
+    <h2 align="center">weibo analyse information</h3>  
+    <p align="center">grab time：2015/10/23</p>  
+    <p align="center"></p>
+    
+    <div id='weibototal'></div>
+    <script type="text/javascript" >
+    $(function(){
+        var raw = '{{namelist}}';
+        alert(typeof(raw));
+        var data = JSON.parse(raw);
+        var tmp = {"name":"", "value": 0, "color":"#4572a7",};
+        var d = [];
+        for(var o in data){  
+            tmp.name = o;
+            tmp.value = data[o];
+            d.push(tmp);
+        }
+        showBar2D(d);
+        });
+	</script>
+    
 </body>  
 </html> 

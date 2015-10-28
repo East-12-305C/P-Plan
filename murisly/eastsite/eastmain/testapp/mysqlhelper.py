@@ -1,22 +1,27 @@
 #coding=UTF-8
 
 import pymysql
+import collections
 
-def getuserinfo(name):
-    info = None;
+def getweibototal():
+    result = collections.OrderedDict();
     try:
-        conn = pymysql.connect(host='localhost', user='root', passwd='sm%198809', db='test', port=3306);
-        cur=conn.cursor();
+        conn = pymysql.connect(host='localhost', user='root', passwd='east', db='spider', port=3306, charset="utf8");
+        cur = conn.cursor();
         
-        cur.execute('select * from urls where name = "%s"' % (name));
-        info = cur.fetchall();
+        sql = 'select nickname,follow from firstuser order by follow desc limit 20;'
+        cur.execute(sql);
+        ret = cur.fetchall();
+        for element in ret:
+            result[(str(element[0]))] = int(element[1]);
+
 
         cur.close();
         conn.close();
     except Exception:
-        print("database exception...");
+        print("mysql database exception...");
     
-    return info;
+    return result;
 
 '''
 a = getuserinfo("tom");

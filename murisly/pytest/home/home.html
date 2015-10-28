@@ -15,7 +15,17 @@
 	<div id='weibototal'></div>
 	<script type="text/javascript" >
 		$(function(){
-			showchart([{"name":"test", "value":12345},])
+            var a = '{&quot;全球健身中心&quot;: 7060153, &quot;Happy张江&quot;: 5756224}';
+            alert(typeof(a));
+            var data = JSON.parse(a);
+            var tmp = {"name":"", "value": 0, "color":"#4572a7"};
+            var d = [];
+            for(var o in data){  
+                tmp.name = o;
+                tmp.value = data[o];
+                d.push(tmp);
+            }
+			showchart(d);
 			});
 	</script>
 	
@@ -35,7 +45,8 @@
 	<div id='weibolocation'></div>
 	<script type="text/javascript" >
 		$(function(){
-			showlocation();
+            
+			showlocation(data);
 			});
 	</script>
 	
