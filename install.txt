@@ -224,7 +224,7 @@ linux下修改mysql的字符集：
 在linux下修改mysql的配置文件my.cnf(vi /etc/my.cnf)文件位置默认/etc/my.cnf文件
 
 找到客户端配置[client] 在下面添加
-default-character-set=gbk 默认字符集为latin1
+default-character-set=utf 默认字符集为latin1
 再找到[mysqld] 添加
 default-character-set=utf8 默认字符集为utf8 或者 character-set-server=utf8
 
