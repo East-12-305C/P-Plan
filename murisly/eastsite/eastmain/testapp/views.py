@@ -12,7 +12,7 @@ def hello(request):
 def home(request):
     weiboldict = getweibototal();
     welfunc = "this is a conbine!";
-    return render(request, 'home.html', {"namelist": TutorialList});
+    return render(request, 'home.html', {"namelist": weiboldict});
 
 def weibotest(request):
     name = request.GET.get("name");
