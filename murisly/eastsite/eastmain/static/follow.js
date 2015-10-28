@@ -29,7 +29,7 @@ function showBar2D(data){
 		subtitle : '10000 per one',
 		footnote : 'data: east305',
 		width : 800,
-		height : 400,
+		height : 700,
 		coordinate : {
 			width : 640,
 			height : 260,
