@@ -14,12 +14,7 @@ def hello(request):
 
 def home(request):
     ret = getweibototal();
-    print(type(ret));
-    print(ret);
     weibodict = json.dumps(ret, ensure_ascii=False);
-    print("total:-----------------");
-    print(type(weibodict))
-    print(weibodict);
     return render(request, 'home.html', {"namelist": SafeString(weibodict)});
 
 def weibotest(request):

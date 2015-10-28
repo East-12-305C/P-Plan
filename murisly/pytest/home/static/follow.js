@@ -14,10 +14,10 @@ function showchart(data){
 		subtitle : '10000 per one',
 		footnote : 'data: east305',
 		width : 850,
-		height : 600,
+		height : 700,
 		coordinate : {
 			width : 600,
-			height : 460,
+			height : 600,
 			axis : {
 				width : [0, 0, 1, 1]
 			},
