@@ -15,7 +15,8 @@
 	<div id='weibototal'></div>
 	<script type="text/javascript" >
 		$(function(){
-            var a = '{"全球健身中心": 7060153, "Happy张江": 5756224}';
+            var a = '{&quot;全球健身中心&quot;: 7060153, &quot;Happy张江&quot;: 5756224}';
+            alert(typeof(a));
             var data = JSON.parse(a);
             var tmp = {"name":"", "value": 0, "color":"#4572a7"};
             var d = [];
