@@ -15,12 +15,11 @@
 	<div id='weibototal'></div>
 	<script type="text/javascript" >
 		$(function(){
-            var a = '{&quot;全球健身中心&quot;: 7060153, &quot;Happy张江&quot;: 5756224}';
-            alert(typeof(a));
+            var a = '{"微博小秘书": 155553755, "新手指南": 126302130, "微博管理员": 116512593, "姚晨": 78419290, "陈坤": 78188199, "谢娜": 75416377, "赵薇": 74919275, "何炅": 71523344, "angelababy": 67045843, "微博雷达": 65951295, "林心如": 65181340, "郭德纲": 62742102, "微博Android客户端": 60776635, "文章同學": 56949380, "杨幂": 54954611, "Kevin凯文老师": 52428837, "刘烨": 49263500, "范范范瑋琪": 47724531, "韩庚": 46745887, "唐嫣": 45204026}';
             var data = JSON.parse(a);
-            var tmp = {"name":"", "value": 0, "color":"#4572a7"};
             var d = [];
-            for(var o in data){  
+            for(var o in data){
+                var tmp = {"name":"", "value": 0, "color":"#4572a7"};
                 tmp.name = o;
                 tmp.value = data[o];
                 d.push(tmp);

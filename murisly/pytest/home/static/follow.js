@@ -13,11 +13,11 @@ function showchart(data){
 		title : 'weibo follows liking',
 		subtitle : '10000 per one',
 		footnote : 'data: east305',
-		width : 800,
-		height : 400,
+		width : 850,
+		height : 700,
 		coordinate : {
-			width : 640,
-			height : 260,
+			width : 600,
+			height : 600,
 			axis : {
 				width : [0, 0, 1, 1]
 			},
