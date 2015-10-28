@@ -15,9 +15,16 @@
 	<div id='weibototal'></div>
 	<script type="text/javascript" >
 		$(function(){
-            var data = JSON.parse("(('全球健身中心': 7060153), ('Happy张江': 5756224))");
-            alert(data);
-			showchart(data)
+            var a = '{"全球健身中心": 7060153, "Happy张江": 5756224}';
+            var data = JSON.parse(a);
+            var tmp = {"name":"", "value": 0,};
+            var d = [];
+            for(var o in data){  
+                tmp.name = o;
+                tmp.value = data[o];
+                d.push(tmp);
+            }
+			showchart(d);
 			});
 	</script>
 	
