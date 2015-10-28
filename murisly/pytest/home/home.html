@@ -15,7 +15,9 @@
 	<div id='weibototal'></div>
 	<script type="text/javascript" >
 		$(function(){
-			showchart([{"name":"test", "value":12345},])
+            var data = JSON.parse("(('全球健身中心': 7060153), ('Happy张江': 5756224))");
+            alert(data);
+			showchart(data)
 			});
 	</script>
 	
@@ -35,7 +37,8 @@
 	<div id='weibolocation'></div>
 	<script type="text/javascript" >
 		$(function(){
-			showlocation();
+            
+			showlocation(data);
 			});
 	</script>
 	

@@ -11,7 +11,8 @@ def hello(request):
 
 def home(request):
     weiboldict = getweibototal();
-    welfunc = "this is a conbine!";
+    print("totla:-----------------");
+    print(weiboldict);
     return render(request, 'home.html', {"namelist": weiboldict});
 
 def weibotest(request):
