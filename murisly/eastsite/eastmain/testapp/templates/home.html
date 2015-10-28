@@ -16,9 +16,9 @@
         var raw = '{{namelist}}';
         alert(typeof(raw));
         var data = JSON.parse(raw);
-        var tmp = {"name":"", "value": 0, "color":"#4572a7",};
         var d = [];
-        for(var o in data){  
+        for(var o in data){
+            var tmp = {"name":"", "value": 0, "color":"#4572a7",};
             tmp.name = o;
             tmp.value = data[o];
             d.push(tmp);
