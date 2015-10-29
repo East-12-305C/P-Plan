@@ -57,16 +57,17 @@ function showBar2D(data){
 	}).draw();
 }
 
-function showsex(){
+function showsex(data){
+/*
 	var data = [
 				{name : 'male',value : 52.5,color:'#4572a7'},
 				{name : 'female',value : 34.3,color:'#aa4643'},
 				{name : 'other',value : 8.4,color:'#89a54e'},
 			];
-
+*/
 	
 	var chart = new iChart.Pie3D({
-		render : 'weibosex',
+		render : 'sexratio',
 		data: data,
 		title : {
 			text : 'weibo Sex ratio',
@@ -159,43 +160,10 @@ function showsex2(){
 				{name : 'fema2',value : 26.83,color:'#3F5C71'},
 				{name : 'Othe3',value : 4.83,color:'#a6bfd2'},
 				{name : 'male4',value : 68.34,color:'#3883bd'},
-/*				{name : 'fele5',value : 26.83,color:'#3F5C71'},
-				{name : 'Oher6',value : 4.83,color:'#a6bfd2'},
-				{name : 'male7',value : 68.34,color:'#3883bd'},
-				{name : 'male8',value : 26.83,color:'#3F5C71'},
-				{name : 'Oher9',value : 4.83,color:'#a6bfd2'},
-				{name : 'male10',value : 68.34,color:'#3883bd'},
-				{name : 'feme11',value : 26.83,color:'#3F5C71'},
-				{name : 'Oter12',value : 4.83,color:'#a6bfd2'},
-				{name : 'mlte13',value : 68.34,color:'#3883bd'},
-				{name : 'fele14',value : 26.83,color:'#3F5C71'},
-				{name : 'Oher15',value : 4.83,color:'#a6bfd2'},
-				{name : 'male16',value : 68.34,color:'#3883bd'},
-				{name : 'fale17',value : 26.83,color:'#3F5C71'},
-				{name : 'ther18',value : 4.83,color:'#a6bfd2'},
-				{name : 'male19',value : 68.34,color:'#3883bd'},
-				{name : 'fale21',value : 26.83,color:'#3F5C71'},
-				{name : 'Oher22',value : 4.83,color:'#a6bfd2'},
-				{name : 'male23',value : 68.34,color:'#3883bd'},
-				{name : 'fale24',value : 26.83,color:'#3F5C71'},
-				{name : 'Oter25',value : 4.83,color:'#a6bfd2'},
-				{name : 'male26',value : 68.34,color:'#3883bd'},
-				{name : 'male27',value : 26.83,color:'#3F5C71'},
-				{name : 'Oher28',value : 4.83,color:'#a6bfd2'},
-				{name : 'male29',value : 68.34,color:'#3883bd'},
-				{name : 'feme31',value : 26.83,color:'#3F5C71'},
-				{name : 'Othr32',value : 4.83,color:'#a6bfd2'},
-				{name : 'male33',value : 68.34,color:'#3883bd'},
-				{name : 'fale34',value : 26.83,color:'#3F5C71'},
-				{name : 'Oher35',value : 4.83,color:'#a6bfd2'},
-				{name : 'male36',value : 68.34,color:'#3883bd'},
-				{name : 'fale37',value : 26.83,color:'#3F5C71'},
-				{name : 'Othr38',value : 4.83,color:'#a6bfd2'},
-*/
 			];
 	
 	var chart = new iChart.Pie3D({
-		render : 'weibosex',
+		render : 'sexratio',
 		title:{
 			text:'weibo Sex ratio',
 			color:'#e0e5e8',

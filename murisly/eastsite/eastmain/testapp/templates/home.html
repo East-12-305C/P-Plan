@@ -30,8 +30,18 @@
     <br>
     <div id='sexratio'></div>
     <script type="text/javascript" >
-    $(function()
-{})
+    $(function(){
+        var raw = '{{sexlist}}';
+        var data = JSON.parse(raw);
+        var d = [];
+        for(var o in data){
+            var tmp = {"name":"", "value": 0, "color":"#4572a7",};
+            tmp.name = o;
+            tmp.value = data[o];
+            d.push(tmp);
+        }
+        showsex2();
+        });
 
     <script type="text/javascript">	
     {{sexlist}}
