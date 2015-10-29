@@ -300,43 +300,26 @@ function showsex3(){
 };
 
 
-function showlocation() {
+function showlocation(data, total) {
+/*
 	var data = [
 				{name : 'MISE',value : 55.11,color : '#4572a7'},
 				{name : 'Firefox',value : 29.84,color : '#aa4643'},
-				{name : 'Chrome',value : 24.88,color : '#89a54e'},
-				{name : 'Safari',value : 6.77,color : '#80699b'},
-				{name : 'Opera',value : 2.02,color : '#3d96ae'},
-				{name : 'MISE',value : 55.11,color : '#4572a7'},
-				{name : 'Firefox',value : 29.84,color : '#aa4643'},
-				{name : 'Chrome',value : 24.88,color : '#89a54e'},
-				{name : 'Safari',value : 6.77,color : '#80699b'},
-				{name : 'Opera',value : 2.02,color : '#3d96ae'},
-				{name : 'MISE',value : 55.11,color : '#4572a7'},
-				{name : 'Firefox',value : 29.84,color : '#aa4643'},
-				{name : 'Chrome',value : 24.88,color : '#89a54e'},
-				{name : 'Safari',value : 6.77,color : '#80699b'},
-				{name : 'Opera',value : 2.02,color : '#3d96ae'},
-				{name : 'MISE',value : 55.11,color : '#4572a7'},
-				{name : 'Firefox',value : 29.84,color : '#aa4643'},
-				{name : 'Chrome',value : 24.88,color : '#89a54e'},
-				{name : 'Safari',value : 6.77,color : '#80699b'},
-				{name : 'Opera',value : 2.02,color : '#3d96ae'},
 			];
-
+*/
 	var chart = new iChart.Column2D({
-		render : 'weibolocation',
+		render : 'weibosex',
 		data : data,
 		title : {
-			text : 'This is a sample spirit from HighCharts',
+			text : 'weibo sex ratio',
 			color : '#3e576f'
 		},
 		subtitle : {
-			text : 'Browser market share,April,2011 from 1 to 29 Feb 2012',
+			text : 'number of people:' + total.toString(),
 			color : '#6d869f'
 		},
 		footnote : {
-			text : 'ichartjs.com',
+			text : 'data:east305',
 			color : '#909090',
 			fontsize : 11,
 			padding : '0 38'
@@ -411,7 +394,7 @@ function showlocation() {
 				chart.target.textAlign('center')
 				.textBaseline('middle')
 				.textFont('600 13px Verdana')
-				.fillText('Total percent market share',x-40,y+H/2,false,'#6d869f', false,false,false,-90);
+				.fillText('Total percent ratio',x-40,y+H/2,false,'#6d869f', false,false,false,-90);
 				
 			}
 	}));
