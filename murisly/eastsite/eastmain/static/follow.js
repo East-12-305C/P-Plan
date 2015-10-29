@@ -246,8 +246,6 @@ var Province = [
     {name:'黑龙江', value:0, color:'#0000CD'},
     {name:'辽宁', value:0, color:'#000080'},
     {name:'陕西', value:0, color:'#FFFF00'},
-    {name:'山西', value:0, color:'#6495ED'},
-    {name:'青海', value:0, color:'#F5FFFA'},
     {name:'浙江', value:0, color:'#87CEFA'},
     {name:'江苏', value:0, color:'#00FFFF'},
     {name:'江西', value:0, color:'#87CEEB'},
@@ -272,9 +270,11 @@ var Province = [
     {name:'西藏', value:0, color:'#FF0000'},
     {name:'宁夏', value:0, color:'#FFC0CB'},
     {name:'台湾', value:0, color:'#FF00FF'},
+    {name:'青海', value:0, color:'#F5FFFA'},
     {name:'新疆', value:0, color:'#DA70D6'},
     {name:'香港', value:0, color:'#DAA520'},
     {name:'澳门', value:0, color:'#AFEEEE'},
+    {name:'山西', value:0, color:'#6495ED'},
 ]
 
 /*显示位置*/
