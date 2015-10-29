@@ -28,19 +28,19 @@ function showBar2D(data){
 		title : 'weibo follows liking',
 		subtitle : '10000 per one',
 		footnote : 'data: east305',
-		width : 800,
-		height : 700,
+		width : 850,
+		height : 750,
 		coordinate : {
-			width : 640,
-			height : 260,
+			width : 600,
+			height : 600,
 			axis : {
 				width : [0, 0, 1, 1]
 			},
 			scale : [{
 				position : 'bottom',
 				start_scale : 0,
-				end_scale : 200000000,
-				scale_space : 25000000
+				end_scale : 180000000,
+				scale_space : 30000000
 			}]
 		},
 		animation : true,
