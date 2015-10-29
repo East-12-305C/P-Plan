@@ -43,12 +43,13 @@ function showchart(data){
 }
 
 function showsex(){
+/*	
 	var data = [
 				{name : 'male',value : 52.5,color:'#4572a7'},
 				{name : 'female',value : 34.3,color:'#aa4643'},
 				{name : 'other',value : 8.4,color:'#89a54e'},
 			];
-
+*/
 	
 	var chart = new iChart.Pie3D({
 		render : 'weibosex',
