@@ -86,7 +86,7 @@ def getweibototal():
             tmp = cur.fetchall();
             num += tmp[0][0];
             addrdict[element] = (tmp[0][0]);
-        addrdict["其他"] += num;
+        addrdict["其他"] += total - num;
         
         result["addrdict"] = addrdict;
         
