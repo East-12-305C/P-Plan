@@ -247,7 +247,7 @@ function showlocaltion3(data){
 			];
 */	
 	new iChart.Pie2D({
-		render : 'weibosex',
+		render : 'localtion',
 		data: data,
 		title : 'weibo Sex ratio',
 		background_color : '#EEEEEE',
