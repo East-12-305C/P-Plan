@@ -323,7 +323,7 @@ function showlocation(data, total) {
 			];
 */
 	var chart = new iChart.Column2D({
-		render : 'weibosex',
+		render : 'sexratio',
 		data : data,
 		title : {
 			text : 'weibo sex ratio',
