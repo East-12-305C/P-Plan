@@ -19,6 +19,7 @@ def getweibototal():
         result["totaldict"] = totaldict;
         
         #sex
+        sexdict = {};
         sql = 'select count(*) as value from firstuser where sex = 0;'
         cur.execute(sql);
         female = cur.fetchall();

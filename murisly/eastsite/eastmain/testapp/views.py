@@ -15,8 +15,9 @@ def hello(request):
 def home(request):
     ret = getweibototal();
     weibodict = json.dumps(ret["totaldict"], ensure_ascii=False);
+    print(ret["sexdict"])
     sexlist = json.dumps(ret["sexdict"], ensure_ascii=False);
-    return render(request, 'home.html', {"namelist": SafeString(weibodict), "sexlist": sexlist});
+    return render(request, 'home.html', {"namelist": SafeString(weibodict), "sexlist": SafeString(sexlist)});
 
 def weibotest(request):
     name = request.GET.get("name");
