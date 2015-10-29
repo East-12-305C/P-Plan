@@ -58,7 +58,7 @@ function showBar2D(data){
 }
 
 /*地理位置比例*/
-function showlocation(data){
+function showlocation3(data){
 /*
 	var data = [
 				{name : 'male',value : 52.5,color:'#4572a7'},
@@ -238,6 +238,54 @@ function showsex2(data){
 	chart.bound(0);
 };
 
+var Province = [
+    {name:'北京', value:60, color:'#EE82EE'},
+    {name:'上海', value:38, color:'#8B008B'},
+    {name:'重庆', value:2, color:'#3883bd'},
+    {name:'天津', value:0, color:'#E6E6FA'},
+    {name:'吉林', value:0, color:'#0000CD'},
+    {name:'黑龙江', value:0, color:'#000080'},
+    {name:'辽宁', value:0, color:'#FFFF00'},
+    {name:'陕西', value:0, color:'#6495ED'},
+    {name:'山西', value:0, color:'#F5FFFA'},
+    {name:'青海', value:0, color:'#87CEFA'},
+    {name:'浙江', value:0, color:'#00FFFF'},
+    {name:'江苏', value:0, color:'#87CEEB'},
+    {name:'江西', value:0, color:'#DEB887'},
+    {name:'安徽', value:0, color:'#F5DEB3'},
+    {name:'福建', value:0, color:'#DCDCDC'},
+    {name:'山东', value:0, color:'#3883bd'},
+    {name:'河北', value:0, color:'#ADD8E6'},
+    {name:'河南', value:0, color:'#E9967A'},
+    {name:'湖北', value:0, color:'#87CEFA'},
+    {name:'湖南', value:0, color:'#7B68EE'},
+    {name:'广东', value:0, color:'#5F9EA0'},
+    {name:'广西', value:0, color:'#696969'},
+    {name:'海南', value:0, color:'#FFFFF0'},
+    {name:'四川', value:0, color:'#483D8B'},
+    {name:'贵州', value:0, color:'#90EE90'},
+    {name:'云南', value:0, color:'#D2691E'},
+    {name:'甘肃', value:0, color:'#008080'},
+    {name:'内蒙古', value:0, color:'#7FFFAA'},
+    {name:'西藏', value:0, color:'#000080'},
+    {name:'宁夏', value:0, color:'#006400'},
+    {name:'新疆', value:0, color:'#FF0000'},
+    {name:'香港', value:0, color:'#FFC0CB'},
+    {name:'澳门', value:0, color:'#FF00FF'},
+    {name:'台湾', value:0, color:'#DA70D6'},
+    {name:'海外', value:0, color:'#DAA520'},
+    {name:'其他', value:0, color:'#AFEEEE'},
+]
+
+/*显示位置*/
+function showlocation(data)
+{
+    for (var element in Province)
+    {
+        Province[element].value = data[Province[element].name];
+    }
+    showlocaltion3(Province);
+}
 
 function showlocaltion3(data){
 /*

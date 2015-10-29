@@ -3,6 +3,46 @@
 import pymysql
 import collections
 
+g_province = [
+    '北京',
+    '上海',
+    '重庆',
+    '天津',
+    '吉林',
+    '黑龙江',
+    '辽宁',
+    '陕西',
+    '山西',
+    '青海',
+    '浙江',
+    '江苏',
+    '江西',
+    '安徽',
+    '福建',
+    '山东',
+    '河北',
+    '河南',
+    '湖北',
+    '湖南',
+    '广东',
+    '广西',
+    '海南',
+    '四川',
+    '贵州',
+    '云南',
+    '甘肃',
+    '内蒙古',
+    '西藏',
+    '宁夏',
+    '新疆',
+    '香港',
+    '澳门',
+    '台湾',
+    '海外',
+    '其他',
+]
+
+
 def getweibototal():
     totaldict = collections.OrderedDict();
     result = {};
@@ -37,7 +77,19 @@ def getweibototal():
         sexdict["other"] = total - int(female[0][0]) - int(male[0][0]);
         result["sexdict"] = sexdict;
         
-
+        #地理位置
+        addrdict = {};
+        num = 0;
+        for element in g_province:
+            sql = 'select count(*) as value from firstuser where address like "%%%s%%";' % element;
+            cur.execute(sql);
+            tmp = cur.fetchall();
+            num += tmp[0];
+            addrdict[element] = (tmp[0]);
+        addrdict["其他"] += num;
+        
+        result["addrdict"] = addrdict;
+        
         cur.close();
         conn.close();
     except Exception:

@@ -222,51 +222,68 @@ function showsex2(data){
 	chart.bound(0);
 };
 
+var Province = [
+    {name:'北京', value:60, color:'#EE82EE'},
+    {name:'上海', value:38, color:'#8B008B'},
+    {name:'重庆', value:2, color:'#3883bd'},
+/*    {name:'天津', value:0, color:'#E6E6FA'},
+    {name:'吉林', value:0, color:'#0000CD'},
+    {name:'黑龙江', value:0, color:'#000080'},
+    {name:'辽宁', value:0, color:'#FFFF00'},
+    {name:'陕西', value:0, color:'#6495ED'},
+    {name:'山西', value:0, color:'#F5FFFA'},
+    {name:'青海', value:0, color:'#87CEFA'},
+    {name:'浙江', value:0, color:'#00FFFF'},
+    {name:'江苏', value:0, color:'#87CEEB'},
+    {name:'江西', value:0, color:'#DEB887'},
+    {name:'安徽', value:0, color:'#F5DEB3'},
+    {name:'福建', value:0, color:'#DCDCDC'},
+    {name:'山东', value:0, color:'#3883bd'},
+    {name:'河北', value:0, color:'#ADD8E6'},
+    {name:'河南', value:0, color:'#E9967A'},
+    {name:'湖北', value:0, color:'#87CEFA'},
+    {name:'湖南', value:0, color:'#7B68EE'},
+    {name:'广东', value:0, color:'#5F9EA0'},
+    {name:'广西', value:0, color:'#696969'},
+    {name:'海南', value:0, color:'#FFFFF0'},
+    {name:'四川', value:0, color:'#483D8B'},
+    {name:'贵州', value:0, color:'#90EE90'},
+    {name:'云南', value:0, color:'#D2691E'},
+    {name:'甘肃', value:0, color:'#008080'},
+    {name:'内蒙古', value:0, color:'#7FFFAA'},
+    {name:'西藏', value:0, color:'#000080'},
+    {name:'宁夏', value:0, color:'#006400'},
+    {name:'新疆', value:0, color:'#FF0000'},
+    {name:'香港', value:0, color:'#FFC0CB'},
+    {name:'澳门', value:0, color:'#FF00FF'},
+    {name:'台湾', value:0, color:'#DA70D6'},
+    {name:'海外', value:0, color:'#DAA520'},
+    {name:'其他', value:0, color:'#AFEEEE'},
+*/
+]
 
-function showsex3(){
+/*显示位置*/
+function showlocation(data)
+{
+    for (var element in Province)
+    {
+        Province[element].value = data[Province[element].name];
+    }
+    showpip3(Province);
+}
+
+function showpip3(data){
+/*
 	var data = [
 				{name : 'male1',value : 68.34,color:'#3883bd'},
 				{name : 'fema2',value : 26.83,color:'#3F5C71'},
-				{name : 'Othe3',value : 4.83,color:'#a6bfd2'},
-				{name : 'male4',value : 68.34,color:'#3883bd'},
-				{name : 'fele5',value : 26.83,color:'#3F5C71'},
-				{name : 'Oher6',value : 4.83,color:'#a6bfd2'},
-				{name : 'male7',value : 68.34,color:'#3883bd'},
-				{name : 'male8',value : 26.83,color:'#3F5C71'},
-				{name : 'Oher9',value : 4.83,color:'#a6bfd2'},
-				{name : 'male10',value : 68.34,color:'#3883bd'},
-				{name : 'feme11',value : 26.83,color:'#3F5C71'},
-				{name : 'Oter12',value : 4.83,color:'#a6bfd2'},
-				{name : 'mlte13',value : 68.34,color:'#3883bd'},
-				{name : 'fele14',value : 26.83,color:'#3F5C71'},
-				{name : 'Oher15',value : 4.83,color:'#a6bfd2'},
-				{name : 'male16',value : 68.34,color:'#3883bd'},
-				{name : 'fale17',value : 26.83,color:'#3F5C71'},
-				{name : 'ther18',value : 4.83,color:'#a6bfd2'},
-				{name : 'male19',value : 68.34,color:'#3883bd'},
-				{name : 'fale21',value : 26.83,color:'#3F5C71'},
-				{name : 'Oher22',value : 4.83,color:'#a6bfd2'},
-				{name : 'male23',value : 68.34,color:'#3883bd'},
-				{name : 'fale24',value : 26.83,color:'#3F5C71'},
-				{name : 'Oter25',value : 4.83,color:'#a6bfd2'},
-				{name : 'male26',value : 68.34,color:'#3883bd'},
-				{name : 'male27',value : 26.83,color:'#3F5C71'},
-				{name : 'Oher28',value : 4.83,color:'#a6bfd2'},
-				{name : 'male29',value : 68.34,color:'#3883bd'},
-				{name : 'feme31',value : 26.83,color:'#3F5C71'},
-				{name : 'Othr32',value : 4.83,color:'#a6bfd2'},
-				{name : 'male33',value : 68.34,color:'#3883bd'},
-				{name : 'fale34',value : 26.83,color:'#3F5C71'},
-				{name : 'Oher35',value : 4.83,color:'#a6bfd2'},
-				{name : 'male36',value : 68.34,color:'#3883bd'},
-				{name : 'fale37',value : 26.83,color:'#3F5C71'},
-				{name : 'Othr38',value : 4.83,color:'#a6bfd2'},
 			];
+*/
 	
 	new iChart.Pie2D({
-		render : 'weibosex',
+		render : 'weiboaddress',
 		data: data,
-		title : 'weibo Sex ratio',
+		title : 'weibo location ratio',
 		background_color : '#EEEEEE',
 		footnote : 'data: east305',
 		legend : {
@@ -300,7 +317,7 @@ function showsex3(){
 };
 
 
-function showlocation(data, total) {
+function showsexratio(data, total) {
 /*
 	var data = [
 				{name : 'MISE',value : 55.11,color : '#4572a7'},
