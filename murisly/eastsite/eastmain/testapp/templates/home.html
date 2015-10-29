@@ -32,16 +32,27 @@
     <script type="text/javascript" >
     $(function(){
         var raw = '{{sexlist}}';
-        alert(raw);
         var data = JSON.parse(raw);
-        var d = [];
-        for(var o in data){
-            var tmp = {"name":"", "value": 0, "color":"#4572a7",};
-            tmp.name = o;
-            tmp.value = data[o];
-            d.push(tmp);
+        var total = 0;
+        for (var element in data) {
+            total = total + data[element];
         }
-        showsex2();
+        for (var element in data) {
+            alert(data[element]);
+            data[element] = (data[element] / total * 100).toFixed(2);
+            alert(data[element]);
+        }
+
+        var d = [];
+        var tmp = {"name":"female", "value": data["female"], "color":"#4572a7",};
+        d.push(tmp);
+        tmp = {"name":"male", "value": data["male"], "color":"#586147",};
+        d.push(tmp);
+        tmp = {"name":"other", "value": data["other"], "color":"#412357",};
+        d.push(tmp);
+        
+        showsex2(d);
+
         });
 
     </script>	

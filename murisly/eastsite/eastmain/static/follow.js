@@ -154,14 +154,15 @@ function showsex(data){
 };
 
 
-function showsex2(){
+function showsex2(data){
+/*
 	var data = [
 				{name : 'male1',value : 68.34,color:'#3883bd'},
 				{name : 'fema2',value : 26.83,color:'#3F5C71'},
 				{name : 'Othe3',value : 4.83,color:'#a6bfd2'},
 				{name : 'male4',value : 68.34,color:'#3883bd'},
 			];
-	
+*/	
 	var chart = new iChart.Pie3D({
 		render : 'sexratio',
 		title:{

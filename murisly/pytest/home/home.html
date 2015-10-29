@@ -33,21 +33,38 @@
 	<br>
 	<div id='weibosex'></div>
 	<script type="text/javascript" >
-		$(function(){
-			showsex3();
-			});
+	$(function(){
+        var raw = '{"other": 16, "male": 786, "female": 523}';
+        var data = JSON.parse(raw);
+        var total = 0;
+        for (var element in data) {
+            total = total + data[element];
+        }
+        for (var element in data) {
+            alert(data[element]);
+            data[element] = (data[element] / total * 100).toFixed(2);
+            alert(data[element]);
+        }
+
+        var d = [];
+        var tmp = {"name":"female", "value": data["female"], "color":"#4572a7",};
+        d.push(tmp);
+        tmp = {"name":"male", "value": data["male"], "color":"#586147",};
+        d.push(tmp);
+        tmp = {"name":"other", "value": data["other"], "color":"#412357",};
+        d.push(tmp);
+        
+        showsex2(d);
+
+        });
+
+    </script>	
 	</script>
 	
 	<br>
 	<br>
 	<br>
-	<div id='weibolocation'></div>
-	<script type="text/javascript" >
-		$(function(){
-            
-			showlocation(data);
-			});
-	</script>
+
 	
 	<br>
 	<br>
