@@ -26,8 +26,9 @@ class Cookies():
             #tezhong69239@163.com
             #{"Cookie": "_T_WM=7267c27f388b035051df7cbf9ca6bc99; SUB=_2A257L8R2DeTxGeNP6VUQ-SbEzT2IHXVY0-w-rDV6PUJbvNANLWrbkW1TSpJsY6WEsn_TN2wEVGfAPnBv3w..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWL6A.u2VkuC0YVxrvvdvhd5JpX5K-t; SUHB=0M2Vo3Kp6M1IT0; SSOLoginState=1445704742"},
             #xie814403@163.com
-            {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; SUHB=0nl-NdMXIlJsPS; SUB=_2A257NZj8DeTxGeRG7VYW9i_NzTiIHXVY2Ti0rDV6PUJbrdAKLXn1kW2KraJvoarfW_xaVB9FbIAbg0VwUQ..; gsid_CTandWM=4u15fccf1ycdqnJTQDwzuc1fP2E"},
+            {"Cookie": "_T_WM=2e3f7177c8a08384c42689784adb536e; SUB=_2A257NZ0SDeTxGeNP6VUV9S3KzjyIHXVY2SNarDV6PUJbvNAKLU_jkW0RuWQJ3kYqQ1xvg-piNbnvyCpkLQ..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhEVnZoJjDdlcUYh6iPgBve5JpX5K-t; SUHB=0D-ViRpEGOx48N; SSOLoginState=1446112578"},
         )
+
 
         self.pos = 0;
         self.length = len(self.cook);
@@ -61,9 +62,11 @@ class ParseHtml():
             "https": "http://220.248.224.242:8089",
         }
 
+        #header
+        nowheaders = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36"}
 
         #html = requests.get(url, cookies = cook, proxies=proxies).text   #get str
-        html = requests.get(url, cookies = cook).text   #get str
+        html = requests.get(url, cookies = cook, headers = nowheaders).text   #get str
 
 
         # replcae special symbol
