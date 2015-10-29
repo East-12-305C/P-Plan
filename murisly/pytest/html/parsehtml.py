@@ -26,7 +26,7 @@ class Cookies():
             #tezhong69239@163.com
             #{"Cookie": "_T_WM=7267c27f388b035051df7cbf9ca6bc99; SUB=_2A257L8R2DeTxGeNP6VUQ-SbEzT2IHXVY0-w-rDV6PUJbvNANLWrbkW1TSpJsY6WEsn_TN2wEVGfAPnBv3w..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWL6A.u2VkuC0YVxrvvdvhd5JpX5K-t; SUHB=0M2Vo3Kp6M1IT0; SSOLoginState=1445704742"},
             #xie814403@163.com
-            {"Cookie": "_T_WM=7267c27f388b035051df7cbf9ca6bc99; SUB=_2A257NKQGDeTxGeNP6VUV9S3KzjyIHXVY1sxOrDV6PUJbvNBeLVPdkW2ZpiUwwvwVF8peLSja739dTE4r9Q..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhEVnZoJjDdlcUYh6iPgBve5JpX5K-t; SUHB=0YhBx0My0h4EV5; SSOLoginState=1446040662; M_WEIBOCN_PARAMS=uicode%3D20000174"},
+            {"Cookie": "_T_WM=9c995b353baf09efb0dd45642f0f9bf4; gsid_CTandWM=4uIgfccf1TmCeFHMrXS1Yc1fP2E; SUB=_2A257NbTKDeTxGeRG7VYW9i_NzTiIHXVY2dyCrDV6PUJbrdAKLWHkkW1rm2bq1Ufw7NIljg10o2ajdfQ9Ww.."},
         )
 
         self.pos = 0;
@@ -234,8 +234,8 @@ class ParseHtml():
         '''
 
         interList = [];
-        pagemax = 13;
-        nowpage = 7;
+        pagemax = 6;
+        nowpage = 3;
         while nowpage < pagemax:
             url = "http://weibo.cn/" + userid + "/follow?page=" + str(nowpage);
             html = self.gethtml(url);
