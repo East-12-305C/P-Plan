@@ -282,7 +282,7 @@ function showsex3(){
 };
 
 
-function showlocation(data, total) {
+function showsexratio(data, total) {
 /*
 	var data = [
 				{name : 'MISE',value : 55.11,color : '#4572a7'},
