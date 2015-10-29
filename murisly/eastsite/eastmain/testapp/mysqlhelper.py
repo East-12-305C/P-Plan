@@ -84,7 +84,7 @@ def getweibototal():
             sql = 'select count(*) as value from firstuser where address like "%%%s%%";' % element;
             cur.execute(sql);
             tmp = cur.fetchall();
-            num += tmp[0];
+            num += tmp[0][0];
             addrdict[element] = (tmp[0][0]);
         addrdict["其他"] += num;
         
