@@ -239,12 +239,13 @@ function showsex2(data){
 };
 
 
-function showsex3(){
+function showlocaltion3(data){
+/*
 	var data = [
 				{name : 'male1',value : 68.34,color:'#3883bd'},
 				{name : 'fema2',value : 26.83,color:'#3F5C71'},
 			];
-	
+*/	
 	new iChart.Pie2D({
 		render : 'weibosex',
 		data: data,
