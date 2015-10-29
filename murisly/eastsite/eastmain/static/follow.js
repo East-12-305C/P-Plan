@@ -297,7 +297,7 @@ function showlocaltion3(data){
 	new iChart.Pie2D({
 		render : 'localtion',
 		data: data,
-		title : 'weibo Sex ratio',
+		title : 'weibo address ratio',
 		background_color : '#EEEEEE',
 		footnote : 'data: east305',
 		legend : {
