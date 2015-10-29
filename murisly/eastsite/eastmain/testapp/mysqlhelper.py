@@ -85,7 +85,7 @@ def getweibototal():
             cur.execute(sql);
             tmp = cur.fetchall();
             num += tmp[0];
-            addrdict[element] = (tmp[0]);
+            addrdict[element] = (tmp[0][0]);
         addrdict["其他"] += num;
         
         result["addrdict"] = addrdict;
