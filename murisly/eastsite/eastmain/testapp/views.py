@@ -16,7 +16,7 @@ def home(request):
     ret = getweibototal();
     weibodict = json.dumps(ret["totaldict"], ensure_ascii=False);
     sexlist = json.dumps(ret["sexdict"], ensure_ascii=False);
-    addrlist = json.dumps(ret["addrlist"], ensure_ascii=False);
+    addrlist = json.dumps(ret["addrdict"], ensure_ascii=False);
     print(addrlist);
     return render(request, 'home.html', {"namelist": SafeString(weibodict), "sexlist": SafeString(sexlist), "addrlist": SafeString(addrlist)});
 
