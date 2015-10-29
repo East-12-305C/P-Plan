@@ -53,6 +53,33 @@
         });
     </script>
     
+    <br>
+    <br>
+    <br>
+    <div id='localtion'></div>
+    <script type="text/javascript" >
+    $(function(){
+        var raw = '{{sexlist}}';
+        var data = JSON.parse(raw);
+        var total = 0;
+        for (var element in data) {
+            total = total + data[element];
+        }
+        for (var element in data) {
+            data[element] = (data[element] / total * 100).toFixed(2);
+        }
+
+        var d = [];
+        tmp = {"name":"male", "value": data["male"], "color":"#586147",};
+        d.push(tmp);
+        var tmp = {"name":"female", "value": data["female"], "color":"#4572a7",};
+        d.push(tmp);
+        tmp = {"name":"other", "value": data["other"], "color":"#412357",};
+        d.push(tmp);
+        
+        showlocation(d, total);
+        });
+    </script>
     {{sexlist}}
     <br>
     <br>
